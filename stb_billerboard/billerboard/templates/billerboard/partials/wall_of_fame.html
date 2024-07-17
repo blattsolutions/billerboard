@@ -1,0 +1,25 @@
+{% load avatar_tags %}
+{% load humanize %}
+<div class="card">
+    <h6 class="mt-3">Hall of Fame 2024</h6>
+    {% for mvp in mvplist %}
+    
+    
+    <div class="card mt-3">
+    <div class="row g-0">
+        <div class="col-md-2 text-center">
+            {% avatar mvp.user class="rounded-circle m-2"%}
+          <strong>{{mvp.month}} 2024</strong>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body mt-2">
+                <h5 class="card-title">{{mvp.user.first_name}} {{mvp.user.last_name}}</h5>
+                <p class="card-text">{{mvp.revenue|intcomma}}€ ({{mvp.deals}} Deals)</p>
+
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>

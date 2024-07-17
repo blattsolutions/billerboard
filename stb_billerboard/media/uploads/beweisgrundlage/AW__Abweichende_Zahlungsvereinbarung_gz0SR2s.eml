@@ -1,0 +1,1305 @@
+Received: from FR2P281MB1963.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:3d::14)
+ by BE1P281MB3109.DEUP281.PROD.OUTLOOK.COM with HTTPS; Thu, 13 Jul 2023
+ 07:56:09 +0000
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=fail;
+ b=Y+/78wzfPahr2sPi35Q3Rvzn8842CyLjD+2V17yRCF6PMnoMVDvYOpFVowWT1RdOGAvlBhZImVxA6UVdwHJHTmV5KcfDDBxte8vGWfDdz+j2ag+APzHM+av2BqV+vU8+/1IYK0jlff9fhWFj38Imf97nPA+K4hxYwTebD8a3Lc/Zx2aH50H0h41VWVmxeJoY99WJ37WEeOR2C6IvjW4Oh0Sd+uA3JCX8N1nY9bMQS6iuSSMNzQ4egdPuGvfQ+OrHaGFZZjUQeE8ZiC596P5ZO1KuvqxoqrpHNSRzz4uCtQ/fXslLZvkoVcE3Jas9UHZqIoicUI0aFVzOR4R/flCNVg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+lb4hGGfhNlSvOhRMZA+ioEz4nkbcGpXnmUkEsIC93A=;
+ b=HedgHMzBoefSm7DtOEAcUgb6E2d4Esaj6/e+P7QhqbNAU7kw2mQ3DsNogGHo/6uV5/x1VdiSP3XLpt6SeVJzfFqmL11BBiQUOiShgK6EFyBimYTwSVP0RnNs9OJkwgzEn+bjLteObFjvCkYxscoAn9XktuzTmteuZpe8EfVywB1prjHbXgWaWqycQltwVvYR7L1P3OZL/3mhn4gSVImoboaa0NUP3fJfblxLtBQjhWM7IsUbQO/IYHj9LZx8CxJf0vknJE7Afpiq657w452ot6Mhuywh1c4mfSE2pYLdlDtQrginZ8KIZMy5/ZxLE6gsviYSoPheJWHUSMO8vAQlRQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 85.220.218.205) smtp.rcpttodomain=stoneberg.de smtp.mailfrom=wagemann.net;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=wagemann.net;
+ dkim=none (message not signed); arc=fail (47)
+Received: from FR2P281CA0024.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14::11)
+ by FR2P281MB1963.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:3d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.24; Thu, 13 Jul
+ 2023 07:56:06 +0000
+Received: from BE0DEU01FT014.eop-deu01.prod.protection.outlook.com
+ (2603:10a6:d10:14:cafe::6e) by FR2P281CA0024.outlook.office365.com
+ (2603:10a6:d10:14::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.8 via Frontend
+ Transport; Thu, 13 Jul 2023 07:56:06 +0000
+Authentication-Results: spf=pass (sender IP is 85.220.218.205)
+ smtp.mailfrom=wagemann.net; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=wagemann.net;compauth=pass
+ reason=100
+Received-SPF: Pass (protection.outlook.com: domain of wagemann.net designates
+ 85.220.218.205 as permitted sender) receiver=protection.outlook.com;
+ client-ip=85.220.218.205; helo=mx.wagemann.net; pr=C
+Received: from mx.wagemann.net (85.220.218.205) by
+ BE0DEU01FT014.mail.protection.outlook.com (20.128.125.158) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6609.10 via Frontend Transport; Thu, 13 Jul 2023 07:56:06 +0000
+Content-Type: multipart/signed; 
+ boundary=NoSpamProxy_d662607b-b818-4578-8043-86eb68ac5b3c; 
+ protocol="application/pkcs7-signature"; micalg="sha256"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A4nrXkyCCeM/xHy4bm8MZIyuRTMtwhl9L9D3sRP3b8mnRo0p8BqNj1cj+YMLU3uH9Eyn2LDI6IrWNiOXxSYyi4/IOyYciyA9b3SiYdPMRO0UYWV5zpy1vWuHt2XrCFUFJFu4oFEpINfr6DCygOqSxVNh46MGlxm1QiuBkxWkXl0FXxXJyeP0EBZ9woZ1DMeATlu/XW7E5rbWgFcvh8dSfeBJqvAO+smyTfQXKzSDlzwflX2cV95wj0i18k7YRi4SXlF4WMJ0PIBcS5zKMH3U8b5w7D2qeZ4T6aCPe9c3IbbHYD+bJcIFFPSJ5MwELuMaluxn4Kk+poIW+J/iqIsgHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9k8K3P7vi6LQEtS0/Vm5/Qv+VDHaVDcUzvjTIqrW4/Y=;
+ b=BQUCMZ9KiyjCKxONQKQEAQZbOvvZgUeIRBH0M1TU3DMoy2NcBPT79zYzFrNsdoNQiyR6/XosxocM+yV9KcZx5BCiugNf29A1OAaQfQoUEiBXZgH1vRQifmzoHmnNUfK2Nz91AcWWwl88xlTg/xV5M639qmvvFi9y8dwWXH9yCdOYYqQOnt3EWRxouyQliVNwANSHdUPSz7l7plmaWnpMeffJTaV1s9epJ55VWu2uHzCrcMUExdmi73I69EJphiS+4ooKj/iKQzlkidodKZWo9XWGSmKh2pBnYDGoKAU4wvMM6QVb0EFns2fcD99KjzbpZry5km46WbY2dNlmtV7xsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=wagemann.net; dmarc=pass action=none header.from=wagemann.net;
+ dkim=pass header.d=wagemann.net; arc=none
+From: "Huth, Gabriela" <g.huth@wagemann.net>
+To: 'Hung Tran' <hung.tran@stoneberg.de>
+Subject: AW: Abweichende Zahlungsvereinbarung
+Thread-Topic: Abweichende Zahlungsvereinbarung
+Thread-Index: AQHZs/w0aPO6jtlHJkGA6I3zvSe9eq+3UFzA
+Date: Thu, 13 Jul 2023 07:55:58 +0000
+Message-ID:
+ <GV1PR10MB63476FB7E6A7E5D3947DC189FB37A@GV1PR10MB6347.EURPRD10.PROD.OUTLOOK.COM>
+References:
+ <BE1P281MB31099348BA02DCEFBAD0BBDC9731A@BE1P281MB3109.DEUP281.PROD.OUTLOOK.COM>
+In-Reply-To:
+ <BE1P281MB31099348BA02DCEFBAD0BBDC9731A@BE1P281MB3109.DEUP281.PROD.OUTLOOK.COM>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=wagemann.net;
+x-ms-traffictypediagnostic:
+ GV1PR10MB6347:EE_|AS8PR10MB7088:EE_|BE0DEU01FT014:EE_|FR2P281MB1963:EE_|BE1P281MB3109:EE_
+X-MS-Office365-Filtering-Correlation-Id: f722e868-619d-404b-0687-08db83769cec
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ gUNGioBLarNjGJUZNNM9tairsOVmqmVuxt3uSagJgHCq1WIfyoUTbLDpoTke1uTOAvi2rZ6RYnC4FRw5mz8rojLlWdPZ/yp0fj45MBs9UdajjDDKYoHFM4vl+ndDO0dbK3r6/l+n1ZBUrHOJfEh8J2LXqP706SFygHMK15a6+8PiJwSngbU9Rw4B/omNqj61cWdOUEHvwShbpgJgwYFH8Ec/Gae60O97c+5huIJSgFrski0qHiQOAJJvQynLEmEyzgNq3KlysXliH7jaheANuuGPHs1kpe6yIUz8gkmt4p5AWKJgRGzBdYrLOk3Cg502vqvnzacOor+asO2Es8P85BrdK7gpF5aArf1DIXCORy7xhJhLDO/ylMfUcZl+J1zlVYJPEeErTA3qS4aoj6aqu9O7qQ5wxbS3OUv7zBsZNFg1RY8Pe4CMf1PWSA9wQ4wZLavYc1A5PQ7/ZaTVTc2oPjvKumoLnwS9fxwglO/t4COoOu/3WISfaQSXX5swpH6W4j51IiFSnPIhQuBpOYgOqRurRYT9J4LdeCddXJ0DXeuWWq8DjAasvkxVqNhKplW82PC5vAolpULpqvvXHdGESjOXSytz1U3c1hkMq29KBeu+/JDibDkEuW4oD00lWhlP+zc+q3GoSBfu2FPmuOLfjmhI4zULUC9ZOc9wOOwpnyMmY6ZkONnZopZLl90K/OeG
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:de;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR10MB6347.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(396003)(346002)(366004)(39840400004)(376002)(136003)(451199021)(8936002)(8676002)(122000001)(38100700002)(66574015)(99936003)(41300700001)(2906002)(316002)(7066003)(5660300002)(7116003)(52536014)(66446008)(64756008)(6916009)(66476007)(66556008)(38070700005)(76116006)(66946007)(166002)(9686003)(33656002)(7696005)(83380400001)(71200400001)(478600001)(55016003)(186003)(6506007)(26005)(86362001)(99760200001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB7088
+Return-Path: g.huth@wagemann.net
+X-MS-Exchange-Organization-ExpirationStartTime: 13 Jul 2023 07:56:06.5150
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ f722e868-619d-404b-0687-08db83769cec
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 453113a9-b933-4555-86ce-84d15841d690:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ BE0DEU01FT014.eop-deu01.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Exchange-Organization-AuthSource:
+ BE0DEU01FT014.eop-deu01.prod.protection.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+ e17c7b34-d1e8-494d-68c6-08db837697e8
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:85.220.218.205;CTRY:DE;LANG:de;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mx.wagemann.net;PTR:mx.wagemann.net;CAT:NONE;SFS:(13230028)(451199021)(36736006)(7066003)(26005)(8636004)(6666004)(6512007)(6916009)(6486002)(9686003)(8676002)(1096003)(7596003)(7636003)(356005)(66574015)(83380400001)(166002)(33656002)(86362001)(15974865002)(5660300002)(52536014)(7116003)(118246002)(9316004)(956004)(336012)(99760200001);DIR:INB;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 07:56:06.4525
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f722e868-619d-404b-0687-08db83769cec
+X-MS-Exchange-CrossTenant-Id: 453113a9-b933-4555-86ce-84d15841d690
+X-MS-Exchange-CrossTenant-AuthSource:
+ BE0DEU01FT014.eop-deu01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR2P281MB1963
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.7824344
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.6565.027
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(930097);
+X-Microsoft-Antispam-Message-Info:
+	=?Windows-1252?Q?G2Q9hJz1n86zfuvfidb2UQuqwVHt7pRWYCs3PZxjMtMEwTyMTL0NDknN?=
+ =?Windows-1252?Q?yvr//waD3ya2u0v+BinK+bYv+idBxmUmQA6RqD7qSldA/3pvcRqZ6KYr?=
+ =?Windows-1252?Q?Iv4H7Qo0VbPRb2iBT1rTx/ru6rsWJzNCvMIYNlHO+UUngyV9YSdTE1rk?=
+ =?Windows-1252?Q?Wh74Wwf2SkWCjT4lpImXJHcXY3Q+tKOzRA6Gz3P9QBYZPYmNDx0/XGho?=
+ =?Windows-1252?Q?7cGBMYgAX57ODx24ZTZ3bajGZyqXlbKWyuESUEX2s7oWNbJUVk0tXfar?=
+ =?Windows-1252?Q?USMRoIddiSM3NsfR6XGaKBIMIB2lmnEnT3pL5S2C7mOz5sRHWC+YKHgW?=
+ =?Windows-1252?Q?hlo25AN+jrRQhsMNXAU7jVzWhut7x7Ww/FQuGH7TbZR9MmKTluH56IIs?=
+ =?Windows-1252?Q?TSXI0rhtogg54Bp7fBuSJmaZZbKEZ+XpQwldQtKHYZrYVGcTb/E/nVTN?=
+ =?Windows-1252?Q?dXXxcVPUEhkO0mJxQW63hU2DLZCqdZYiJz4qUp2n1yiO9YiWtw+406wf?=
+ =?Windows-1252?Q?eN7Ox2fkSBfu2jHE5iT7yGw7/yljO6D5ZkWTcKRJcrLhGZkHraZ5M5Sk?=
+ =?Windows-1252?Q?BQvqI/uQygdy49QS9DB101spOKC2FIZDLEWXKq5GepB24uvZ8MYSyFxJ?=
+ =?Windows-1252?Q?APvgIdJuzo2RmrA+hRNv8kZcjxxnYmBG5oUjvNFiCbL7rYWBJuDTF10O?=
+ =?Windows-1252?Q?cgdoyCrFBufiBx9YQHB/Cr4t3cyYMydyx26dfDHH6pN2PeznEp3mhrVJ?=
+ =?Windows-1252?Q?LIlYGtPR3z1kipD9+TTGrRFU4BxaG9JgS/xx49ZRNKj8AdvhmYh8BU+9?=
+ =?Windows-1252?Q?boEKneSmlHmWuF6BTlFxWHsnM4xF1rSl7XO7QBuQy7Mff+/k3yIhAEQO?=
+ =?Windows-1252?Q?xLLefwWj/CQIibcUIN1rdZkdM1TBGC4qcaWeytDup4rjekoHEJbPY/tc?=
+ =?Windows-1252?Q?NHTGy7htCJWMo6XsFulcr+IPoX8qtODnWadM72W+LE3y31yDeSe3sEKV?=
+ =?Windows-1252?Q?NvjIH7AnntYc6GuBFnSLuiRR3fqi3k32rb8QD/CYCaJyA9yZNbPMZIKz?=
+ =?Windows-1252?Q?yHDAMQliWw5i1G24jEpxNBqVGCUr+xeiIFXwUXd9ekg8Yru6UlkdJ2RH?=
+ =?Windows-1252?Q?MWVQE9CJ4nnvVZlpwBSnLqKopGTI9N8sqb5kLarIRT3VRaKxqiGRGs3b?=
+ =?Windows-1252?Q?iswDBsRoRfIqGKnfLEBdB/dNJ+OO+K+srgJfRR1LISvlNM8S3bQ9JaXb?=
+ =?Windows-1252?Q?/MmkeW97ED1y+HbldHJbSKWRUTC630flN2d6N1Bsw3ZW9BHwoz8UXou4?=
+ =?Windows-1252?Q?GLEb/BSxM5ut5gU/yBG/NCFpYG/ACNpIe8ZZ0UwR/pzRAXqEgJxU4eWk?=
+ =?Windows-1252?Q?HES4XfNUBijh3RKGVM50fpE1Zf0kLIi93m0ffA4AHcMTZtRMVS+o7yfj?=
+ =?Windows-1252?Q?hAh50+indSzljYYbLMeHqqgnwagyQmVca3g+8WWjNUmBkEdgNtCGYKYn?=
+ =?Windows-1252?Q?YqDA7O+X6Fuqh/2VYviaAhwhQu6bmqABTWm7ndqeFdSa3EzqbaiN4xUL?=
+ =?Windows-1252?Q?h5V8nKOOJ1PLcJDlmWp3mCGF8Y1OgmMC5n/3LTnbcLobiUGunRASi7Ml?=
+ =?Windows-1252?Q?Z56MTtBPU3ghDqMr1xWc1yIu0zTw5sI62JghMLUhGy6yQn1mxtRoDQj7?=
+ =?Windows-1252?Q?7tCPuw6ri/E=3D?=
+MIME-Version: 1.0
+
+--NoSpamProxy_d662607b-b818-4578-8043-86eb68ac5b3c
+Content-Type: multipart/related;
+	boundary="_006_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_";
+	type="multipart/alternative"
+
+--_006_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_
+Content-Type: multipart/alternative;
+	boundary="_000_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_"
+
+--_000_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hiermi=74 best=E4t=69=67=65 =69ch=2C d=61=73=73 ich die Allg=65mei=6Een =47e=
+=73=63h=E4f=74s=62e=64=69=6Egu=6E=67=65=6E =64=65r =53t=6F=6E=65b=65=72g =49=
+=54 Recru=69t=6De=6E=74 GmbH erha=6Cten und =7Au=72 K=65n=6E=74=6E=69s g=65n=
+=6Fmm=65n h=61=62=65. I=63=68 erk=6C=E4r=65 mic=68 damit =65i=6Ev=65rst=61=6Ed=
+e=6E, d=61s=73 die=73e AGB =66=FC=72 unsere G=65=73c=68=E4fts=62ez=69ehung bin=
+=64end =73i=6Ed.
+
+
+M=69t fr=65=75=6Ed=6Cichen Gr=FC=DFen
+
+Gabrie=6Ca Huth
+
+HR-Assist=65nt
+
+
+[=63i=64:im=61ge=30=30=31.pn=67@=30=31=44=39=425=36D=2E6C11=35=43=300]<=68t=74=
+p:=2F/www.w=61gem=61n=6E=2En=65=74/=3E
+
+Ber=6Ci=6E =B7 D=FCss=65ld=6Frf =B7 Ha=6Dburg
+
+W=61gem=61=6En + Pa=72tner Par=74G =6Db=42
+=53=74euer=62er=61=74=65r =B7 =57i=72ts=63=68=61f=74sp=72=FC=66=65=72
+Eis=65nzahnstra=DFe 64, 1=30=3709 Ber=6Ci=6E
+T=2E +49 30 893=3889-=3524
+F=2E +=34=39 =33=30 8938=389-99
+=67=2Eh=75=74h@wagem=61nn.net<m=61ilto=3A=67.=68u=74=68@=77a=67e=6Dann=2E=6E=
+=65t>
+
+=53=69tz: =42erl=69n =28=41G =43=68arl=6Ftt=65n=62ur=67, =50R 9=301 =42=29
+Im=70ressu=6D<=68ttps:=2F/=77ww=2Ewagem=61=6E=6E.n=65=74/i=6D=70=72=65ss=75m/>=
+ =2F L=69ste der P=61r=74ner<ht=74ps:=2F/=77w=77=2E=77agem=61n=6E.=6Eet=2Fun=
+=74e=72n=65=68men/=3Fc=63o=5F=63a=74egor=79=3D1=30#tea=6D=3E
+
+Wor=6Cdw=69=64e rep=72=65s=65n=74ed throu=67h I=6E=74=65gra I=6Etern=61ti=6F=
+=6Ea=6C=3Ch=74=74p://=77w=77.in=74egr=61-=69nt=65rnat=69=6F=6E=61l.=6Eet=2F=3E=
+,
+=61 =67lobal =61ss=6F=63iation of =69=6Edependen=74 =61cco=75ntin=67,
+t=61x, au=64i=74 and =63ons=75lt=69=6Eg =66ir=6Ds=2E
+We=69te=72e =49n=66or=6Da=74=69o=6E=65=6E<ht=74=70=73://ww=77.=77a=67=65mann.n=
+et/#=6D=69tg=6C=69edsch=61f=74en=3E =2F =66=6F=72 =66=75rt=68er i=6Ef=6F=72mat=
+=69o=6E=3Chttps://=77ww.wagem=61nn.=6Eet/e=6E/=23mitgli=65=64s=63ha=66te=6E=3E
+
+
+=44e=72 =49nhal=74 d=69=65ser E-=4Dail (=65=69=6Eschli=65=73slich etwaiger b=
+=65i=67e=66uegte=72 =44at=65ien) i=73=74 vertr=61=75l=69ch un=64 =6E=75r f=75=
+=65=72 d=65n =45mpf=61=65ng=65r bestim=6Dt. Sol=6Cte=6E S=69=65 =6Eicht d=65r =
+=62es=74=69mmu=6Eg=73=67=65mae=73se Empf=61=65ng=65r =73=65in, is=74 Ihnen jeg=
+=6C=69che Offen=6Cegu=6Eg=2C Vervie=6C=66ael=74ig=75ng, Weite=72gab=65 oder Nu=
+tz=75ng =64=65s In=68a=6C=74s =75=6Eter=73ag=74=2E Bitte infor=6D=69e=72en Si=
+=65 in die=73em =46=61=6Cl unver=7A=75=65=67=6Ci=63h d=65n A=62send=65=72 un=
+=64 l=6Fes=63he=6E =53ie die =45-Mai=6C (=65ins=63h=6Ciesslich =65twa=69ge=72 =
+beigefue=67ter =44ate=69en) von I=68=72=65=6D =53ystem. V=69elen Dan=6B. =B7 T=
+h=65 content=73 =6F=66 thi=73 e=2Dmai=6C =28in=63=6Cuding =61ny =61ttachments)=
+ are c=6F=6Efide=6Etial =61=6E=64 ma=79 b=65 =6Ce=67=61=6Cly p=72ivile=67ed. I=
+f =79ou a=72e no=74 the int=65n=64=65d =72=65=63ip=69=65nt =6F=66 =74=68=69s =
+=65=2D=6D=61i=6C, an=79 disclosur=65, cop=79ing=2C di=73tr=69=62u=74ion o=72 u=
+=73e o=66 =69t=73 =63=6Fnten=74s is =73tr=69ctly pr=6F=68ibite=64, a=6E=64 you=
+ should please n=6Ftif=79 =74h=65 s=65=6E=64=65r =69m=6D=65d=69a=74e=6Cy and =
+=74he=6E delete i=74 =28incl=75ding a=6E=79 a=74t=61ch=6Dent=73) fro=6D =79=6F=
+ur =73ystem. Th=61n=6B y=6Fu.
+
+V=6Fn: Hun=67 Tran <=68u=6E=67.tran@sto=6Eeb=65rg=2Ed=65>
+G=65se=6Ed=65t: Di=65nst=61=67, =311. J=75=6C=69 =320=323 15=3A33
+An: =48u=74=68, =47=61br=69ela =3Cg=2Ehuth=40=77a=67=65man=6E.net>
+B=65treff: Ab=77=65i=63hen=64e =5Aah=6C=75ng=73v=65=72=65i=6E=62arung
+
+ACH=54=55=4EG: Di=65se =45-M=61i=6C stammt =76=6Fn einem ext=65=72n=65n A=62se=
+nder=2E =42i=74te v=65=72=6Deid=65=6E =53=69=65 =65s=2C =41n=68=E4n=67e =6Fd=
+=65r =65xte=72ne =4Cink=73 zu =F6=66fnen=2C =77e=6E=6E =53=69e die=73e nic=68=
+=74 =65r=77arten ode=72 de=6D Absender ni=63h=74 =76=65=72=74raue=6E.
+
+Hallo Fra=75 Huth,
+
+i=63h b=65=64anke =6D=69=63h nochm=61l herzl=69ch f=FCr das =61=6Egenehm=65 Ge=
+spr=E4ch. B=65=7A=75=67=6E=65h=6Dend a=75=66 =75=6E=73=65=72 T=65lef=6Fnat =FC=
+b=65r=73=65nde i=63h I=68ne=6E =68ie=72m=69=74 un=73ere abwe=69chende Zahlun=
+=67s=76=65re=69=6Ebar=75n=67 z=75=72 Ke=6E=6E=74=6Ei=73nahme mi=74 de=72 Bi=74=
+t=65 um ku=72=7Ae Best=E4tigu=6Eg.
+
+D=69=65 =61llg=65=6D=65inen G=65sch=E4ftsbedi=6Egung=65n (AGB), wie die=73=65 =
+=69m =41nha=6Eg hinz=75gef=FCgt wurde, =73in=64 =61nwend=62=61r. Die =77ichti=
+=67s=74en =56ere=69nbarung=65=6E =66=FCr A=6Ewe=72=62u=6Eg =26 Aus=77a=68l wer=
+d=65n fol=67end ab=67=65=E4n=64ert:
+
+  *   Das Ho=6Eora=72 =69st =61=75f de=72 Gr=75=6Ed=6Ca=67=65 von =22no cure=
+=2C n=6F pa=79"=2E
+  =2A   D=61s =48o=6Eorar =62e=6C=E4uf=74 si=63=68, wie in Arti=6B=65l 3 =62es=
+=63hrieben, abh=E4n=67i=67 v=6Fm Bru=74t=6F=6Aah=72=65=73gehalt
+  *   Das V=65=72mittlung=73=68onorar =62=65=74=72=E4gt =332 % d=65=73 =4Aah=
+=72es=7Aielgeh=61l=74=65s=2C min=64este=6E=73 j=65doc=68 =65ine Pauscha=6Ce vo=
+n 1=35=2E=3000 EUR.
+  *   =44i=65 =52ec=68=6Eu=6Egsst=65=6Clung er=66o=6Cgt, wi=65 es i=6E Art=69k=
+=65l =35 =62es=63hr=69e=62=65n i=73=74, und =64ie Bez=61hl=75ng i=6Ene=72h=61=
+=6C=62 =76=6Fn 14 Tagen =61b Re=63h=6Eu=6E=67sdatum.
+So=6Clt=65n =53ie =6Eo=63=68 Fragen =68=61=62e=6E oder w=65i=74e=72=65 =55nter=
+s=74=FCtz=75=6Eg be=6E=F6tig=65n, ste=68en w=69r I=68=6E=65n gern=65 z=75r V=
+=65rf=FC=67un=67.
+
+F=FCr e=69ne B=65st=E4ti=67=75ng =64=65=72 A=47B k=F6nn=65=6E =53ie uns =67=65=
+rn=65 =65=69n=65 =45-Ma=69l mit =66ol=67e=6E=64em S=61t=7A s=65n=64e=6E=3A " =
+=48iermit =62=65=73=74=E4ti=67=65 ich=2C =64a=73s ich =64i=65 =41=6Clgemeinen =
+=47es=63=68=E4=66=74s=62ed=69ngun=67e=6E =64er Sto=6E=65=62erg IT =52e=63=72=
+=75=69t=6Den=74 G=6DbH =65rha=6Cte=6E und zu=72 Ke=6En=74=6Eis =67enom=6Den =
+=68abe=2E I=63=68 e=72kl=E4=72e =6D=69c=68 dam=69=74 ei=6Eve=72st=61=6Eden=2C =
+da=73s =64=69ese AGB f=FCr =75nse=72e G=65=73ch=E4ft=73=62ez=69ehun=67 bi=6Ede=
+=6E=64 sind.
+
+B=65ste Gr=FC=DFe,
+
+Hung =54=72an
+Ass=6F=63iat=65 P=61rt=6Eer
+
+St=6Fneb=65rg =49T R=65cru=69t=6D=65nt =47mb=48
+Bl=FCte=6Estra=DF=65 20
+807=399 =4D=FCnch=65n
+=77=77=77.=73t=6F=6E=65be=72=67.d=65<h=74tp:=2F/=77=77=77=2Esto=6Ee=62erg.de=
+=2F>
+
+Telefon=3A  =2B4=39 89 904 2211 23
+Te=6C=65=66ax=3A  +49 89 9=304 =32=321=31 2=30
+E-=4D=61il:  hung.tran=40st=6F=6E=65ber=67.=64e<=6Dailt=6F:=68ung.tr=61=6E@sto=
+n=65berg=2D=69t.=64e>
+
+
+[STONE=42ER=47=5D=3Ch=74=74=70s=3A//=74=2E=73idekickop=65=6E=32=33.com/=43=74=
+=63/=5AU+=32=33=3284/=641=31=71c=640=34/=4A=6B=382-6=717=575BW=30B06lZ3n6W5Bcp=
+3=5F=37x1=62N=6D=579=37=4E=57=5Fw2C=43=5FZ=58W8mPSk=4420J=73gDW8=39D9=59=5F=34=
+c=4CkCq=57=315KJ=38=44=33=63=54kz=68W=34V=51w=36C1w8-KmVZcvh66=44-=747KW=31=52=
+B6t=6D=36wK1bTN4Hv=42DD-kR=52J=56gf=70=6AY6mzkBxW=33bNN=5A=541DT=5FQ=38=572=30=
+lKXs6=32=56F=44=37=575=58G=64yZ5=38ZBd=57N31Qhb=79nwlhZVjK=73=4B=382f=38YFWW17=
+fRZQ6w2=505N=57425=56=6754=505C=2Dq=4E90=4Dx9w19Sfrf7J4pM=640=34=3E
+
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F
+
+St=6F=6E=65be=72g IT Recrui=74ment GmbH | Sitz=3A =4D=FCnche=6E | A=6D=74sge=
+=72ich=74 =4D=FCn=63=68=65=6E, HRB 26=314=360 | USt-=49d=4E=72.: =44E =333=372=
+7350=30 | Gesch=E4fts=66=FC=68=72e=72=3A =43ong =54oan =4Eguyen, V=69=65t Du=
+=63 =4E=67uy=65n
+
+
+
+--_000_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+=3C=68=74ml xml=6Es:=76=3D"ur=6E=3As=63=68=65=6D=61s-micr=6Fs=6F=66t-=63om:vml=
+" =78mln=73=3A=6F=3D=22urn=3Asche=6D=61=73-mi=63=72os=6Fft-c=6Fm:offic=65:of=
+=66=69ce" x=6D=6Cn=73:w=3D"=75r=6E:=73=63=68=65m=61s=2Dmicr=6F=73o=66t-com:o=
+=66=66=69ce:=77=6F=72d" x=6Dlns=3Am=3D"=68=74tp=3A/=2Fs=63=68=65mas=2Em=69c=72=
+o=73=6Fft=2Eco=6D/=6Ff=66ic=65=2F20=304=2F12/=6Fm=6Dl=22 xmlns=3D"=68ttp://w=
+=77w=2Ew3.or=67/=54R/=52EC-=68tml40">
+=3Chead>
+<me=74a htt=70-equ=69v=3D"Co=6Etent-=54=79=70e=22 co=6Ete=6E=74=3D"=74=65=78t/=
+h=74ml; c=68a=72=73e=74=3D=69=73o-88=35=39=2D1">
+<meta =6Ea=6De=3D=22G=65nerator=22 co=6Et=65nt=3D=22=4Dicroso=66t =57or=64 =31=
+5 (fil=74e=72ed medi=75m=29=22=3E
+=3C!-=2D=5B=69=66 !=6Dso=5D>=3Cstyle>=76\=3A* =7Bbehav=69or:=75=72l(#default#V=
+ML=29;}
+o\:=2A =7Bbe=68=61vi=6F=72:u=72l(#=64e=66aul=74#VML);=7D
+=77=5C:* {beha=76ior:ur=6C=28#de=66aul=74#V=4DL=29=3B=7D
+=2Eshape =7Bbe=68avior=3A=75rl(#defau=6C=74=23VM=4C);}
+=3C/st=79=6Ce=3E<!=5Be=6Ed=69f]=2D-=3E<styl=65=3E<!=2D-
+/=2A F=6Fnt =44e=66=69ni=74=69=6F=6E=73 *=2F
+@=66=6Fnt-f=61c=65
+=09=7B=66ont-fam=69=6Cy=3AHe=6Cvetica=3B
+=09=70a=6Eose-1:=32 11 6 4 =32 =32 =32 2 =32 4=3B=7D
+@=66=6Fn=74=2Dfa=63=65
+=09{=66on=74=2Dfa=6Dily:W=69n=67d=69=6E=67s;
+=09=70ano=73e-1=3A=35 0 =30 =30 =30 0 =30 0 =30 0=3B=7D
+=40font-fac=65
+=09{=66=6Fnt-f=61=6Dily:=22=43a=6Dbr=69=61 =4D=61=74h=22;
+=09panose-=31:2 4 =35 3 =35 4 6 3 2 4=3B=7D
+@=66o=6Et-=66=61=63e
+=09{fon=74-famil=79:=43=61=6Cibri;
+=09p=61=6E=6Fse-=31:2 15 5 2 2 =32 =34 =33 =32 =34=3B}
+@=66on=74-face
+=09{fo=6E=74=2D=66amil=79:Ve=72d=61=6E=61;
+=09pano=73=65-1:=32 1=31 =36 =34 =33 5 =34 4 =32 =34;=7D
+/* S=74=79=6C=65 De=66in=69tio=6Es *=2F
+p.=4Dso=4Eo=72=6Dal, l=69.=4D=73oNor=6Dal=2C di=76=2EMsoN=6F=72ma=6C
+=09{m=61rgi=6E:0cm;
+=09=66o=6Et-=73ize=3A11.=30=70=74=3B
+=09=66=6F=6Et-famil=79:"C=61l=69b=72=69=22,sa=6E=73-serif;=7D
+=61:=6Cink, span=2E=4Dso=48y=70=65rli=6Ek
+=09{m=73=6F-s=74yle-pri=6F=72ity:99=3B
+=09col=6Fr:=62=6Cu=65=3B
+=09text-d=65=63=6F=72a=74i=6Fn:und=65=72line=3B}
+=2EMs=6FChp=44efault
+=09=7Bm=73o-=73=74=79=6C=65-=74y=70=65:=65x=70ort=2Do=6El=79;
+=09fo=6Et-=73i=7Ae:10.=30=70t=3B}
+@pa=67e Word=53e=63t=69on1
+=09=7Bsiz=65:6=312.0pt =3792=2E=30p=74;
+=09=6Darg=69n:7=30=2E8=35pt 70.=385p=74 2.=30=63=6D 70=2E=385=70t;=7D
+div.W=6F=72dS=65c=74io=6E1
+=09{=70=61ge:W=6F=72dSection1=3B=7D
+=2F* =4Cist D=65fin=69tio=6Es =2A=2F
+=40=6Cist l=30
+=09{mso-list-id:=31721708510=3B
+=09mso=2D=6C=69=73t-=74=65=6Dpla=74=65=2Di=64s:5=3498=39=30508=3B=7D
+=40=6Cist =6C=30:lev=65l1
+=09{mso-=6Cev=65=6C-=6Eumb=65r=2D=66or=6Dat=3A=62ul=6Cet;
+=09=6D=73=6F-=6C=65v=65l-=74ex=74:=5C=460B=37;
+=09mso=2Dleve=6C=2Dtab=2D=73=74op:3=36.0=70t;
+=09mso=2Dl=65ve=6C-=6E=75=6Db=65r=2D=70ositio=6E:le=66t;
+=09=74ext=2Din=64=65nt:-=318.0p=74;
+=09=6Dso-a=6Es=69=2D=66ont-si=7A=65:10.0pt=3B
+=09fon=74=2Dfami=6C=79:Symbol;=7D
+@=6Ci=73t l0:leve=6C=32
+=09=7Bmso=2D=6C=65v=65l-=6Eumbe=72-for=6Dat:b=75ll=65=74;
+=09m=73o=2Dlev=65=6C-tex=74:o=3B
+=09mso-level=2Dtab-=73to=70:7=32=2E=30pt;
+=09m=73=6F=2Dle=76=65=6C-n=75=6Dber=2Dpo=73i=74ion=3Al=65=66t;
+=09t=65xt-inde=6E=74=3A-1=38.0pt;
+=09ms=6F-=61nsi=2Dfo=6Et-siz=65=3A=310.=30pt=3B
+=09font-=66ami=6C=79:"=43ou=72=69er New"=3B
+=09=6Dso-=62idi-=66o=6Et-fam=69ly:"T=69me=73 =4Ee=77 =52=6Fma=6E=22;}
+@=6C=69s=74 l0:le=76e=6C3
+=09=7Bms=6F=2D=6Ce=76e=6C-n=75=6D=62er-form=61t=3A=62=75=6Clet;
+=09mso=2Dleve=6C=2D=74ext:\F0A7;
+=09=6D=73o-le=76el-t=61b-=73t=6Fp:1=308.=30pt;
+=09ms=6F-l=65vel-=6Eu=6D=62er-posit=69=6F=6E=3A=6Ce=66t;
+=09t=65=78t-i=6Ed=65=6E=74:-18=2E=30=70t;
+=09=6Dso-ans=69=2D=66ont-si=7A=65:=310=2E=30=70t;
+=09font-=66ami=6Cy:Wi=6Egdin=67s;=7D
+@list =6C0=3Ale=76e=6C=34
+=09=7B=6Dso=2Dlev=65=6C=2D=6E=75=6Db=65=72-fo=72m=61=74=3Abull=65=74=3B
+=09m=73o-level-te=78t=3A\F=30A7;
+=09mso-l=65vel=2Dtab=2D=73top:1=344.0p=74;
+=09=6Dso-=6Cevel-=6Eu=6Db=65r=2D=70=6Fsition:l=65ft;
+=09text-=69=6E=64=65nt=3A-1=38.0pt;
+=09m=73=6F=2Dansi-=66=6F=6E=74-=73ize:=31=30.0=70t=3B
+=09fon=74-=66a=6Dily=3AWin=67=64ings=3B}
+@lis=74 l0:lev=65l5
+=09{=6Dso=2Dle=76=65l-=6Eumbe=72=2D=66o=72m=61t:bul=6Cet=3B
+=09m=73o=2Dl=65v=65l=2Dt=65xt:\=460A7;
+=09ms=6F-level-ta=62=2Dstop=3A1=380.=30=70t=3B
+=09mso=2Dle=76el=2Dn=75=6Dber-p=6F=73it=69on=3A=6C=65ft=3B
+=09text=2Dinden=74:-1=38.0pt=3B
+=09m=73o-ans=69-f=6Fnt-size:10.0=70=74;
+=09=66=6Fn=74=2Dfami=6Cy=3A=57in=67din=67=73=3B}
+@l=69=73t l=30=3Ale=76e=6C6
+=09{mso-lev=65l-=6E=75=6Db=65r=2Dfor=6Da=74=3A=62ul=6Cet;
+=09m=73o=2D=6C=65=76=65l-text:\F0A=37;
+=09=6Dso-=6C=65=76=65=6C-t=61b-s=74o=70=3A=32=316.0=70t;
+=09ms=6F=2Dle=76el=2Dnumb=65r-p=6F=73ition=3A=6Ce=66t;
+=09text-i=6E=64ent=3A=2D1=38.0=70=74;
+=09m=73o=2Da=6Es=69-=66o=6Et-siz=65:=31=30=2E0pt;
+=09f=6Fnt-=66amily=3AWin=67=64=69ng=73=3B}
+@li=73t =6C0:lev=65l7
+=09{mso=2D=6Ceve=6C-=6Eumb=65r-fo=72=6D=61=74:bullet;
+=09=6Ds=6F-le=76=65=6C-te=78t:\F0A7=3B
+=09=6Dso-=6C=65v=65l-=74ab-sto=70:=32=35=32=2E=30pt;
+=09=6D=73o-le=76el=2Dn=75mbe=72-posi=74ion:left;
+=09=74ext-=69=6Eden=74=3A=2D1=38.0pt=3B
+=09m=73=6F-an=73=69=2D=66ont-size:10.0=70t;
+=09font-=66amily=3AWi=6E=67d=69ngs;}
+@list =6C=30:=6Ce=76el=38
+=09{mso-leve=6C=2Dnum=62=65r-fo=72m=61t:b=75llet=3B
+=09=6Dso=2Dlevel=2Dtex=74:\F0A7;
+=09=6Dso=2Dlev=65l-tab=2Dstop=3A=32=388=2E0=70=74;
+=09ms=6F-=6C=65vel=2Dnumb=65r-p=6Fsition:le=66=74;
+=09text-=69n=64ent:-18=2E0pt=3B
+=09m=73o=2Dansi-fon=74-si=7Ae:=310.0=70t;
+=09f=6F=6Et=2Dfami=6C=79:=57ingd=69ngs;=7D
+@li=73t l0:=6Cev=65l=39
+=09=7Bm=73=6F-=6C=65vel-=6Eu=6D=62er=2D=66orm=61t:bu=6Cl=65t=3B
+=09=6Dso=2Dl=65v=65l=2Dte=78t:=5CF=30A7;
+=09=6D=73=6F-level=2Dta=62-=73t=6Fp=3A3=32=34.=30p=74;
+=09m=73o-lev=65=6C-=6E=75mbe=72=2Dp=6Fs=69=74i=6Fn:l=65ft;
+=09te=78=74=2D=69nd=65n=74:=2D1=38.0pt;
+=09mso-a=6Esi=2Dfont-size=3A=310.0pt=3B
+=09=66on=74-fa=6Dily=3AW=69=6E=67d=69ngs=3B}
+ol
+=09{m=61rg=69=6E-botto=6D=3A0=63=6D=3B=7D
+u=6C
+=09=7Bmar=67i=6E-b=6F=74=74o=6D:0=63=6D;}
+--=3E</st=79le><!--=5Bi=66 g=74e m=73o 9]><=78=6Dl>
+=3Co:sh=61p=65=64efaults v:=65=78=74=3D"edi=74=22 sp=69=64max=3D"1026" =2F>
+<=2Fxml><=21[=65ndif]--=3E<!-=2D=5Bif gte m=73o 9]=3E=3Cxml>
+=3C=6F:=73h=61=70=65layo=75t v:ext=3D"=65d=69t"=3E
+<o=3A=69dmap v:ext=3D=22ed=69=74" =64=61ta=3D"1" />
+</=6F:=73=68apel=61=79=6F=75t></xml><![endif]-=2D>
+</=68=65=61d=3E
+=3C=62ody =6C=61=6Eg=3D"D=45" link=3D"=62=6Cue" =76link=3D"p=75rpl=65=22 st=79=
+le=3D"=77=6Frd-=77=72ap:bre=61k-word=22>
+<=64i=76 cla=73=73=3D=22Wo=72=64S=65c=74io=6E1=22=3E
+<=70 cl=61=73=73=3D"MsoNo=72=6Dal"=3E<str=6F=6Eg=3E=3Cspan style=3D"fon=74-fa=
+=6D=69=6C=79=3A=26=71uot;A=72=69=61=6C&qu=6Ft;=2C=73=61=6Es-s=65r=69f;c=6Flor=
+=3A#4=32=34242;backgr=6Fund=3Aw=68=69=74e=22>=48ierm=69t b=65st=E4=74i=67e i=
+=63=68, das=73 ic=68 die Al=6C=67em=65in=65=6E Ge=73c=68=E4f=74=73b=65d=69ngun=
+g=65n =64e=72 St=6Fneb=65rg I=54 Recru=69tm=65nt =47=6D=62=48 =65r=68al=74en =
+=75=6Ed zur =4Be=6En=74=6E=69s genommen =68abe=2E =49ch erkl=E4=72e
+ mich =64=61=6D=69t e=69=6Eve=72s=74=61nd=65n, =64a=73s dies=65 =41=47B =66=FC=
+r uns=65re Gesch=E4ft=73=62e=7Ai=65h=75ng binden=64 s=69nd<=2F=73p=61n=3E<=2F=
+=73t=72=6Fn=67=3E=3Cspan =73=74y=6Ce=3D"font=2Dfam=69=6Cy=3A&quot=3BAr=69al=26=
+quot;,s=61ns-=73erif;color:=23424242;=62ack=67r=6Fund:whi=74e">.</sp=61n=3E
+<o:=70=3E</o:p>=3C/p>
+<p =63=6C=61s=73=3D=22M=73oNor=6D=61l"=3E<=73pan =73ty=6Ce=3D=22font-s=69ze=3A=
+10=2E=30p=74=3Bfo=6E=74=2Dfam=69=6C=79:&quo=74=3BVe=72d=61na=26q=75ot;=2C=73=
+=61=6Es=2D=73er=69f;=63=6Fl=6F=72=3A=62=6Cac=6B;=6D=73o-=66=61r=65=61s=74=2Dla=
+=6Eg=75age=3AEN=2D=55S=22><o:=70>&=6E=62sp=3B</=6F:p=3E</sp=61n=3E<=2Fp=3E
+<p =63l=61s=73=3D"M=73=6FNorma=6C"><s=70a=6E =73=74=79le=3D"font=2D=73iz=65=3A=
+=310.0pt;font-fa=6D=69l=79=3A&=71uot=3BVerd=61na&quo=74=3B,sa=6Es=2D=73=65=72i=
+=66;color:=62la=63k=3Bmso=2D=66=61r=65ast-l=61=6E=67ua=67e=3AEN-=55S=22=3E=3Co=
+:p=3E=26nb=73=70;=3C=2Fo:p></=73p=61n>=3C=2Fp>
+<div>
+<=74a=62le cla=73s=3D=22=4Ds=6F=4E=6Fr=6Da=6CTa=62le" b=6F=72=64er=3D"0=22 =63=
+ellspacing=3D=220" =63el=6Cp=61d=64in=67=3D"0=22 =77=69dt=68=3D"10=30%" s=74=
+=79le=3D"widt=68:=3100.0=25;=62ord=65=72=2D=63ollap=73e:=63oll=61ps=65"=3E
+<=74=62ody>
+=3Ctr>
+<t=64 s=74yl=65=3D"pad=64in=67=3A=30c=6D 0cm 0c=6D 0c=6D">
+<p =63=6C=61ss=3D=22=4D=73=6FNor=6D=61l=22><=73=70=61n =73t=79=6Ce=3D=22f=6Fnt=
+=2Ds=69ze:10.=30p=74=3Bfon=74-fa=6Dily=3A=26quo=74;=56=65rd=61n=61=26q=75ot=3B=
+,sans-s=65rif=3Bcolor:=62lack=22>Mit =66=72=65undl=69chen Gr=FC=DFe=6E</s=70an=
+><s=70an s=74yle=3D"=63=6Fl=6F=72:bla=63k"=3E=3Co=3A=70=3E=3C/=6F:p=3E</spa=6E=
+>=3C/p>
+=3C/t=64>
+</=74r>
+<=2Ft=62=6Fdy=3E
+=3C/t=61bl=65>
+<p =63=6C=61=73s=3D"=4D=73oNor=6Da=6C"=3E<s=70an =73tyle=3D"font-s=69ze:7.=35p=
+t;=66=6Fn=74-fami=6Cy:&qu=6Ft;=56er=64ana=26=71=75o=74;=2Csans=2Dserif=3Bco=6C=
+=6Fr=3Ab=6Cack=22=3E<=6F:p=3E&nb=73p;<=2F=6F:=70><=2Fs=70a=6E><=2Fp>
+<=74ab=6C=65 c=6C=61ss=3D"=4D=73o=4Eorm=61lT=61bl=65" bo=72der=3D"0=22 =63=65l=
+lspacing=3D=220=22 =63e=6C=6Cpa=64=64ing=3D=220"=3E
+=3C=74body>
+<tr>
+<td style=3D=22=70add=69ng:=30cm =30cm 0cm 0c=6D">
+<=70 =63=6Ca=73s=3D"Ms=6F=4Eorm=61l">=3C=73p=61n st=79l=65=3D=22=66=6Fn=74-=73=
+i=7A=65=3A10.0p=74;=66=6Fn=74-family=3A&quot;=56e=72=64a=6Ea&quot=3B,=73=61=6E=
+s-=73e=72if;c=6Flor:bla=63k">Ga=62r=69el=61 Hut=68<=2Fspa=6E=3E<sp=61n sty=6Ce=
+=3D"col=6Fr:bl=61ck=22>=3Co=3A=70>=3C/o:p></s=70a=6E=3E</p>
+=3C/td>
+=3C=2F=74=72=3E
+=3C/=74bod=79>
+=3C/=74=61ble>
+=3Cp cla=73s=3D=22Ms=6FNo=72m=61=6C"=3E<s=70an =73ty=6Ce=3D"fon=74-=73=69ze:7.=
+5p=74=3Bfont-f=61mily:=26quo=74;Ve=72d=61na=26q=75=6Ft=3B=2Csans-serif=3Bc=6Fl=
+or=3Ab=6Cack=22><=6F:=70>&=6Ebsp;</=6F:p=3E</=73p=61n><=2F=70>
+<ta=62=6C=65 cl=61s=73=3D"M=73oN=6F=72mal=54a=62=6Ce" border=3D=220=22 cel=6Cs=
+pa=63ing=3D"0" cel=6C=70addin=67=3D"0">
+<=74bod=79>
+<tr>
+<t=64 now=72ap=3D=22" valign=3D=22to=70" s=74yl=65=3D"padding:=30c=6D 0cm 0cm =
+0=63=6D">
+=3Cp cla=73s=3D"=4DsoN=6Frmal=22=3E<span st=79=6C=65=3D"fo=6Et-siz=65:7=2E5=70=
+=74=3B=66on=74-=66=61m=69l=79=3A&=71uot=3B=56erdana&q=75ot;=2C=73a=6Es=2Dseri=
+=66;color:b=6Cack=22=3EHR-Assistent=3C=2Fs=70=61=6E><=73=70a=6E =73=74yl=65=3D=
+"fon=74-=73=69z=65:1=30.0=70t;=66=6Fn=74-f=61=6Dily:&=71uo=74;V=65rdana&quot;,=
+=73ans-s=65=72i=66;c=6F=6Cor:black">=3C=6F:=70><=2Fo:=70>=3C=2Fs=70=61n></=70>
+</t=64=3E
+=3C/tr=3E
+<=74=72=3E
+<=74d nowr=61p=3D"" vali=67n=3D=22top=22 =73t=79=6Ce=3D=22p=61=64d=69ng:0c=6D =
+0cm 0=63=6D 0=63=6D=22=3E=3C=2Ftd>
+</=74r=3E
+=3Ctr=3E
+=3Ct=64 n=6Fw=72=61=70=3D=22" =76a=6C=69gn=3D"=74op=22 st=79le=3D"=70ad=64=69=
+=6Eg:0=63m =30=63m =30c=6D =30=63m"><=2F=74d=3E
+<=2Ftr=3E
+=3C/tbody=3E
+=3C/t=61ble>
+=3Cp c=6C=61s=73=3D"=4DsoN=6F=72m=61l=22 sty=6C=65=3D=22=6Dargin-=62ottom=3A12=
+.0p=74"=3E<span =73t=79=6Ce=3D=22fo=6Et-size=3A7=2E5pt;fo=6Et-family:=26quo=74=
+=3BVe=72dana&qu=6Ft;,sa=6Es=2Dse=72i=66;c=6Fl=6F=72:=62l=61ck">=3C=62r>
+=3Cbr>
+</=73pa=6E><a h=72ef=3D=22h=74=74p:=2F=2Fww=77=2Ewagemann=2Ene=74/" =74arg=65t=
+=3D=22''=22><s=70an st=79le=3D"fo=6E=74-=73=69z=65=3A7=2E5pt=3Bfon=74=2D=66ami=
+ly=3A&=71uot;Ve=72=64=61na=26quot;=2Csans=2D=73er=69=66=3Bt=65=78t-d=65c=6Fr=
+=61ti=6Fn=3An=6Fne">=3C=69=6Dg =62o=72der=3D=22=30" w=69d=74h=3D"1=390=22 =68=
+=65ig=68=74=3D"34" s=74y=6Ce=3D=22w=69d=74h:1=2E9833in;h=65ig=68=74=3A=2E=335=
+=38=33i=6E=22 id=3D=22G=72=61fik=5F=78=300=320=5F2=22 s=72=63=3D=22c=69d:=69=
+=6D=61ge001=2Epng@0=31D=39=425=36=44.6=431=315C00"></s=70an=3E=3C=2Fa><=73pa=
+=6E =73tyl=65=3D"fon=74-=73=69z=65=3A7.=35pt;fo=6E=74-fam=69=6Cy:=26=71uot=3BV=
+=65=72dan=61=26q=75ot;,s=61=6E=73-ser=69f=3B=63o=6Cor:black"><br>
+=3Cbr>
+Berl=69=6E =B7 D=FCssel=64=6F=72=66 =B7 =48=61mbur=67=3Cbr>
+<br>
+<=62>=57a=67emann +&=6Ebsp;P=61=72=74=6Ee=72 P=61r=74=47 mbB=3C/b=3E=3Cb=72>
+Ste=75=65r=62e=72=61=74er =B7 Wirtsch=61=66t=73=70r=FCfer<br>
+E=69senzahnst=72a=DFe =364, 10709 B=65rlin</=73=70=61=6E>=3C=73=70an st=79=6Ce=
+=3D"f=6Fn=74=2Dsi=7A=65:7.5pt;=66=6Fn=74-f=61mi=6C=79:=26quot=3BV=65=72dana=26=
+qu=6F=74=3B,s=61ns=2Dserif;colo=72:black">=3Co:p></=6F:=70=3E=3C=2Fs=70an>=3C=
+=2Fp>
+<tabl=65 =63=6Ca=73=73=3D=22MsoNorm=61=6C=54abl=65" =62=6Fr=64=65=72=3D=22=30"=
+ c=65llspa=63=69ng=3D"0=22 cellpadding=3D"0=22 w=69=64=74h=3D"2=327" =73=74=79=
+le=3D"=77=69=64th:=36.0cm">
+<tb=6F=64y=3E
+<tr=3E
+=3C=74d =76alig=6E=3D"to=70" style=3D=22pa=64d=69=6Eg:=30cm 0cm 0=63m =30=63m"=
+>
+<p clas=73=3D"=4DsoNor=6Dal">=3Csp=61=6E s=74=79le=3D"=66ont=2Ds=69z=65=3A=37.=
+5p=74;=66ont-=66a=6Dily=3A&q=75ot=3B=56e=72da=6E=61=26qu=6Ft;=2Csans-s=65rif;=
+=63=6F=6Co=72=3Abla=63=6B"=3ET. +49 30 8=39=33889-524<o=3A=70>=3C=2F=6F=3Ap=3E=
+<=2Fspa=6E>=3C/p>
+</=74=64=3E
+=3C=2Ft=72=3E
+<t=72>
+<td nowrap=3D"" va=6C=69gn=3D=22t=6F=70" =73=74yle=3D"padding:=30c=6D 0cm 0c=
+=6D 0cm"=3E
+=3C=70 =63la=73=73=3D"Ms=6FNo=72m=61=6C=22><=73p=61n =73=74yle=3D"fo=6Et-s=69z=
+e:=37=2E5=70=74;font-fa=6Dily:=26=71uo=74;V=65r=64=61n=61&q=75o=74;,s=61n=73-=
+=73erif;c=6Flo=72:b=6Cack"=3E=46. +49 3=30 8=393=3889=2D=39=39=3Co:=70><=2Fo:=
+=70>=3C/=73=70an=3E<=2F=70=3E
+</=74d>
+</=74r>
+=3C=74r=3E
+<td =6E=6Fwr=61=70=3D=22" =76al=69gn=3D=22top=22 =73t=79le=3D"p=61ddi=6Eg:=30c=
+=6D 0cm 0cm 0cm=22=3E
+<p =63=6Ca=73=73=3D=22M=73oNo=72=6Da=6C=22=3E<span s=74yle=3D=22f=6Fnt=2Dsize=
+=3A7=2E=35pt;fon=74=2Df=61mi=6Cy:=26quot=3BV=65rd=61=6Ea=26qu=6Ft=3B=2C=73ans-=
+=73=65rif;=63o=6Cor=3Abl=61=63k"=3E=3Ca h=72e=66=3D=22m=61i=6Cto=3A=67.hu=74=
+=68@wagem=61n=6E.=6Eet=22 title=3D=22C=6C=69ck =74o =73=65=6Ed =65=6D=61il =74=
+=6F Hu=74h=2C =47ab=72i=65l=61">g=2E=68uth@wage=6Da=6En.=6Ee=74</=61=3E<o=3Ap=
+=3E</o:p=3E</sp=61n>=3C/p=3E
+</=74d=3E
+=3C=2Ft=72>
+</=74body>
+=3C/=74ab=6C=65>
+=3Cp =63=6Ca=73=73=3D=22Mso=4Eo=72ma=6C"><s=70a=6E l=61ng=3D"=45=4E-US=22 st=
+=79le=3D=22font=2D=73=69ze:7.5=70t=3B=66=6Fnt-famil=79=3A&qu=6F=74;=56e=72dana=
+&qu=6Ft;,san=73-=73=65r=69f;co=6Co=72:=62=6C=61c=6B"=3E=3Cbr>
+Sitz: Berlin (AG C=68=61=72lot=74=65nb=75rg, P=52 90=31 B)=3Cbr>
+<=2F=73pan>=3C=73=70a=6E =73ty=6C=65=3D"f=6Fnt=2Dsize:=37=2E5p=74;f=6F=6E=74=
+=2D=66amil=79:=26qu=6Ft;=56er=64=61n=61=26qu=6Ft=3B,sa=6Es=2Dserif;col=6F=72=
+=3A=62=6Cac=6B"=3E=3Ca h=72ef=3D"=68tt=70s=3A//=77ww=2Ewag=65mann.net/=69mpres=
+su=6D/=22><sp=61n =6Ca=6Eg=3D"EN=2DUS"=3EImpr=65ssum</span=3E=3C/=61><=2Fspan>=
+<sp=61=6E l=61n=67=3D=22E=4E-U=53" sty=6Ce=3D"=66on=74-=73i=7A=65=3A7.0pt=3Bf=
+=6Fnt=2Dfa=6Dily=3A&quo=74;Ve=72dana&=71uo=74;=2Csa=6E=73-se=72if;c=6Flo=72:bl=
+a=63k=22=3E
+ / </span=3E<s=70a=6E st=79l=65=3D=22fo=6Et-size:7.=35p=74;font=2D=66=61mil=79=
+:&=71=75ot=3BVe=72da=6Ea&qu=6F=74;,sans=2D=73=65=72i=66=3B=63ol=6Fr:blac=6B=22=
+><a hre=66=3D"h=74t=70s:=2F=2F=77=77w.=77a=67=65=6D=61nn.=6Eet/unte=72=6E=65h=
+=6De=6E/=3F=63c=6F=5F=63=61tegory=3D10#team=22=3E<s=70an lang=3D=22E=4E=2D=55S=
+"=3EL=69st=65 der =50a=72tn=65r<=2F=73=70a=6E>=3C=2Fa></s=70=61n><s=70=61n =6C=
+a=6E=67=3D"EN=2DUS=22 =73=74yle=3D=22f=6Fn=74-=73=69ze=3A7=2E5=70=74=3Bfon=74-=
+f=61mi=6Cy:&q=75=6Ft;=56=65=72=64an=61&quot=3B,s=61n=73-se=72=69=66;co=6Co=72:=
+b=6Ca=63=6B"><=62=72>
+=3C=62r=3E
+Worldwi=64e rep=72es=65n=74e=64 thr=6Fugh=26nb=73p;</s=70an><=73=70=61n st=79=
+=6Ce=3D=22=66ont-=73i=7A=65=3A7.5=70=74;font-famil=79:&quo=74;=56e=72d=61=6Ea&=
+q=75=6Ft;=2Csans-s=65ri=66;c=6F=6Co=72:=62=6Cack"=3E<=61 hr=65f=3D"h=74tp:=2F=
+=2Fw=77=77.in=74egra=2Dinter=6Eati=6Fn=61l.n=65t/=22><=73pan lan=67=3D"EN-US">=
+In=74eg=72=61 In=74=65=72nati=6Fnal</=73p=61n><=2Fa></s=70a=6E><=73p=61n lang=
+=3D=22=45N-=55S" s=74=79l=65=3D=22=66ont-s=69ze:=37=2E5pt=3Bfo=6Et-f=61=6D=69l=
+y:=26=71uot;=56er=64ana=26quot;,sans-s=65rif=3B=63o=6C=6F=72:black">,
+<=62r>
+=61 global association =6Ff in=64e=70ende=6Et ac=63o=75n=74ing,=3C=62r>
+tax, =61udit an=64 =63=6Fn=73=75lting f=69rms.<br>
+</=73p=61n><span s=74=79=6Ce=3D"=66ont-si=7Ae=3A7=2E5pt;f=6Fnt-fam=69ly:=26q=
+=75ot;=56e=72d=61na=26quo=74=3B=2Cs=61=6Es-serif;color=3Ab=6Cac=6B"><a href=3D=
+=22htt=70=73://=77=77w=2Ewagema=6En.net/#=6Dit=67li=65dsc=68aften"=3EWe=69tere=
+ =49nformat=69o=6Ee=6E<=2Fa></=73pa=6E><span s=74yle=3D"=66o=6Et-size:=37.0p=
+=74;=66ont=2Dfami=6C=79=3A=26quo=74;=56erdana&quot=3B,sa=6E=73-s=65r=69f;c=6F=
+=6Cor:bla=63k=22=3E =2F
+=3C/=73p=61n><spa=6E =73ty=6Ce=3D=22f=6Fnt=2Dsi=7Ae:7.5=70t;=66o=6Et-fam=69=6C=
+y=3A&q=75ot;V=65rd=61n=61&=71u=6F=74;=2C=73ans=2Dserif;co=6Cor=3A=62l=61ck=22>=
+<a hre=66=3D"https=3A//ww=77.=77=61g=65mann.=6E=65t=2Fen/#mi=74glieds=63haften=
+">=66o=72 fu=72t=68e=72 =69=6Eforma=74=69o=6E<=2F=61=3E<=62=72>
+=3C=62r>
+<=2F=73=70an><sp=61n s=74yle=3D=22=66=6Fnt-si=7Ae:7.5p=74=3Bfont-f=61m=69l=79=
+=3A&=71u=6Ft;=41r=69a=6C=26quot;,sans-s=65rif;colo=72:=62=6Cac=6B"=3E=3Cb=72>
+</span><=73=70=61n style=3D"font=2Dsiz=65:=36.5=70t;font=2Dfamil=79:&q=75ot=3B=
+Ve=72=64ana=26q=75=6F=74;,san=73-s=65ri=66;c=6F=6C=6Fr:#6F6=466=45">D=65=72 In=
+=68a=6C=74 dieser E-M=61il =28eins=63=68=6C=69esslic=68 =65t=77ai=67er beig=65=
+fueg=74er D=61t=65=69=65n) i=73t =76ert=72=61ulich und nur f=75er de=6E E=6Dpf=
+=61=65=6Eger be=73timmt. Soll=74e=6E S=69=65 nicht =64e=72 best=69m=6Du=6E=67=
+=73gem=61es=73=65 E=6D=70faenger
+ sei=6E, ist I=68n=65n je=67l=69=63he Of=66=65nl=65=67u=6Eg, Ve=72vielfaelti=
+=67un=67, Weit=65=72ga=62e o=64e=72 Nu=74=7Aung d=65=73 In=68a=6Ct=73 =75=6Ete=
+rsag=74=2E B=69tte =69=6Ef=6Frmieren =53ie in =64ies=65m =46all u=6E=76e=72zue=
+=67lich de=6E Ab=73e=6E=64er und loesc=68e=6E Sie di=65 E-Mail (=65inschli=65s=
+sli=63h et=77a=69g=65r =62eig=65=66uegt=65r Da=74=65i=65n=29 =76=6Fn Ihrem Sy=
+=73t=65m.
+</spa=6E>=3Cs=70an =6Ca=6E=67=3D"EN-=55S" s=74yl=65=3D=22f=6Fn=74-size=3A=36.5=
+p=74;f=6Fnt-fam=69=6Cy=3A&quo=74=3B=56=65rdana=26quot=3B,=73a=6Es-s=65ri=66;co=
+l=6Fr=3A=23=36F6F=36=45">V=69=65len Dank. =B7
+=3C=69=3EThe co=6Etents o=66 t=68is e-m=61il (inclu=64ing any =61t=74a=63=68me=
+=6Ets) are co=6Ef=69dent=69al and m=61y =62e =6C=65gally p=72i=76=69=6C=65=67=
+=65d=2E =49f yo=75 =61r=65 not t=68e =69nt=65n=64=65d =72eci=70ient of t=68=69=
+=73 =65=2D=6Dai=6C, an=79 dis=63l=6Fsure, copyi=6Eg=2C =64=69s=74ri=62=75tio=
+=6E or =75se =6Ff i=74s =63ontents is =73=74rictly pr=6Fhi=62=69ted, and you s=
+ho=75ld
+ =70le=61=73=65 notify the =73ender im=6De=64i=61=74el=79 =61nd t=68=65=6E =64=
+e=6Ce=74e =69t (=69nc=6Cud=69ng =61ny atta=63hmen=74s) fro=6D =79=6F=75r =73ys=
+te=6D.
+=3C=2Fi=3E<=2Fspan><i><spa=6E s=74y=6Ce=3D"fon=74-s=69=7Ae=3A6.=35=70=74;=66on=
+=74-fa=6D=69ly:&=71uot=3BV=65=72=64=61=6Ea=26quot;=2Csans-=73eri=66;=63ol=6Fr=
+=3A#6=466F6E=22>Thank you.</sp=61n>=3C=2Fi>=3Cspan =73t=79le=3D"font=2Ds=69z=
+=65:10=2E0pt;font=2D=66ami=6C=79=3A&quot=3B=56=65rd=61n=61=26qu=6F=74;,=73=61=
+=6Es=2Dserif;c=6F=6Co=72:=62=6Cack"><o:p></o=3Ap=3E</=73pan>=3C/p>
+</d=69=76>
+<=70 c=6Cass=3D=22Mso=4Eorm=61l=22><s=70an s=74yle=3D"=6Dso-fare=61st-la=6Eg=
+=75=61=67e:EN-US"><=6F:p>&n=62sp;=3C/=6F:p>=3C/s=70=61n><=2Fp>
+=3Cdiv>
+<div =73tyle=3D=22=62o=72d=65r=3Anone;=62=6F=72d=65r=2Dto=70:s=6Flid #=451=451=
+E1 1.=30pt;paddi=6E=67:=33.=30pt 0cm 0c=6D 0=63=6D=22>
+<=70 =63=6Cass=3D=22=4DsoNorma=6C">=3C=62>Vo=6E:<=2Fb> Hu=6Eg Tran =26lt;hu=6E=
+=67.=74ra=6E=40st=6Fne=62erg.d=65&gt=3B <br>
+=3Cb>Gesendet:=3C=2Fb> =44=69enstag, =311. Juli 2023 15=3A33<=62r>
+=3Cb>An=3A</=62=3E =48u=74=68, =47=61b=72iel=61 &=6Ct;g.=68=75th@wagem=61nn=2E=
+=6Eet&gt;<=62r>
+<=62=3E=42etr=65ff:</b=3E Ab=77ei=63h=65n=64=65 =5Aahl=75ngsv=65=72ei=6E=62aru=
+n=67<=6F:p></=6F:p>=3C=2F=70>
+</=64=69=76=3E
+<=2Fd=69v>
+<p cl=61ss=3D"=4Ds=6F=4Eo=72mal=22><o=3Ap>&nbsp;<=2Fo=3Ap></=70>
+=3C=64iv styl=65=3D"b=6Fr=64er:=73o=6Ci=64 #=39C65=30=30 =31.=30=70t;pa=64di=
+=6Eg:=32=2E=30p=74 =32.0pt 2.=30=70t 2.=30pt=22>
+<p c=6Cass=3D"MsoNor=6Dal" sty=6Ce=3D"lin=65-h=65i=67=68t:12.0pt;b=61ckgr=6Fu=
+=6E=64:#FFEB9C"><=73p=61=6E st=79=6C=65=3D=22fo=6E=74-s=69=7Ae:1=30=2E0p=74;c=
+=6Flo=72:#9=43=3650=30=22>ACH=54U=4E=47:=3C/=73pa=6E><=73=70an =73tyle=3D"=66=
+=6Fnt-=73i=7Ae=3A=310.0p=74=3Bc=6Fl=6F=72:b=6C=61=63=6B=22> D=69ese E=2DMai=6C=
+ s=74=61mmt v=6F=6E einem e=78ternen A=62sender=2E =42=69tt=65 v=65=72=6D=65i=
+=64e=6E Sie e=73, =41nh=E4nge o=64=65r
+ =65x=74=65rn=65 L=69nks =7Au =F6=66fnen, wenn Sie =64i=65se nic=68=74 erwa=72=
+ten ode=72 d=65m A=62=73e=6Ed=65=72 ni=63ht vert=72au=65n.<o:=70>=3C/o:=70=3E=
+=3C/sp=61=6E></=70=3E
+<=2Fdiv>
+<p =63lass=3D"=4DsoNorm=61=6C"><=6F=3Ap>&nbs=70;</o=3Ap></=70=3E
+<div>
+=3C=64=69v>
+<p =63=6C=61=73s=3D=22Mso=4E=6Frm=61=6C"><spa=6E styl=65=3D=22fo=6E=74-fami=6C=
+=79:&=71=75o=74;Arial=26=71uot;,sans-se=72=69f;color=3A#4=34=34444">H=61=6Cl=
+=6F =46=72=61u =48ut=68=2C=3C/span>
+<o=3Ap=3E<=2Fo:p=3E<=2Fp>
+</=64iv>
+=3Cp cl=61ss=3D"=4Dso=4Eormal"=3E<=6F:p>=26nb=73p;</o:=70></=70=3E
+=3Cdiv>
+=3Cp cla=73s=3D"Mso=4Eorm=61=6C"=3E<=73pan style=3D=22font-fami=6Cy:=26quot;Ar=
+i=61l&quo=74;,=73an=73-serif=3Bco=6Co=72:#=34=32=34242=3Bb=61ckgr=6F=75=6E=64:=
+w=68it=65=22>i=63h bedan=6Be m=69ch n=6Fchmal herzlic=68 f=FCr da=73 =61n=67en=
+=65hme =47espr=E4c=68=2E Bezu=67n=65hmend auf u=6Ese=72 Tel=65f=6F=6Eat =FC=62=
+er=73end=65 ic=68 =49hne=6E hi=65rm=69=74 =75=6Es=65=72e<=2Fspa=6E=3E=3C=73=70=
+=61=6E s=74=79l=65=3D=22f=6Fnt=2Dfamily:&=71u=6Ft;Arial&=71uot;,s=61=6Es-se=72=
+i=66=3Bcolor=3A=234=34=34444=22>
+</=73pan><=73p=61=6E s=74yle=3D"font=2Dfa=6Di=6C=79:&q=75ot;A=72ial=26=71uo=74=
+=3B,sa=6E=73-=73er=69f;co=6Co=72=3A=23=3424242;b=61ckground:w=68ite">a=62weic=
+=68=65nd=65=3C/=73p=61n><spa=6E =73ty=6Ce=3D"fon=74-f=61mi=6Cy:&q=75=6Ft=3B=41=
+r=69=61l&qu=6F=74;,s=61ns=2Dse=72if=3Bcolor:#=34444=344"=3E
+<=73pan =73t=79=6Ce=3D"=62a=63=6B=67=72o=75=6E=64:white"=3EZa=68l=75n=67=73ver=
+ei=6E=62=61rung z=75=72 Ke=6Ent=6E=69s=6E=61=68me</spa=6E></spa=6E><spa=6E s=
+=74=79l=65=3D=22f=6Fnt-fa=6Di=6C=79=3A&quot;=41r=69al=26quot;=2Cs=61ns-ser=69=
+=66;color:#42424=32=3Bbac=6B=67roun=64=3Awh=69t=65=22> mi=74 de=72 =42itt=65 u=
+=6D k=75rz=65 Be=73t=E4t=69=67u=6Eg.=3C=2F=73p=61n>
+<o=3A=70><=2Fo:p=3E</p>
+=3C/div=3E
+<p cl=61=73s=3D"=4Ds=6FN=6Frmal=22><o=3Ap>&=6Ebs=70;<=2Fo:p>=3C/p>
+=3Cdiv>
+=3Cp cl=61ss=3D"MsoNo=72m=61l">=3Csp=61n style=3D=22=66on=74=2D=66amil=79:&=71=
+uot;A=72=69al&=71uot=3B=2Csan=73-se=72=69f=3B=63olor:=23=342=34242;ba=63k=67=
+=72=6F=75nd:w=68it=65">D=69=65 al=6Cg=65=6D=65inen Gesc=68=E4ftsb=65=64i=6Egu=
+=6E=67e=6E (=41G=42)=2C wie di=65=73e i=6D =41=6E=68an=67 hinz=75ge=66=FCg=74 =
+=77ur=64e, s=69=6Ed anwendba=72. Di=65 wichtigs=74=65n =56=65=72ei=6Ebar=75=6E=
+ge=6E =66=FC=72 =41=6Ewerbu=6E=67 &a=6D=70=3B Aus=77a=68l w=65r=64en
+ =66olgen=64 a=62ge=E4=6E=64ert:</s=70an> <o:p>=3C/=6F:=70=3E=3C/p=3E
+=3C=2F=64=69v>
+<=75l type=3D"d=69s=63">
+=3C=6C=69 class=3D"MsoNor=6Dal=22 s=74y=6Ce=3D"m=73=6F-=6D=61r=67in-=74op-al=
+=74:=61u=74o;=6D=73o-m=61=72gi=6E-b=6Ft=74=6F=6D-al=74:=61=75=74o;ms=6F-l=69=
+=73=74=3A=6C=30 lev=65l1 l=66=6F1">
+<=73pa=6E =73ty=6Ce=3D"fon=74=2Dfamil=79=3A=26qu=6F=74;Ar=69al=26=71uot=3B,s=
+=61=6Es-s=65ri=66;col=6Fr:=2342424=32=3B=62ackgroun=64:=77h=69te">=44=61s Hono=
+r=61r =69st auf de=72 =47rundlage vo=6E =26#=38=3222;no cur=65, no pay&#8=32=
+=320;.<=2Fspan><o:p=3E</=6F:p>=3C/li><l=69 clas=73=3D"MsoN=6Frm=61=6C" style=
+=3D"m=73o-m=61rg=69n=2Dt=6Fp-a=6Ct=3Aaut=6F;mso-ma=72=67i=6E=2Dbottom-alt:=61u=
+=74o;mso=2D=6Ci=73t=3A=6C0 level=31 lfo=31"=3E
+<=73pa=6E =73=74=79le=3D=22font-fam=69=6C=79=3A&quo=74;A=72i=61l&qu=6Ft=3B,san=
+s-s=65rif;=63=6Flor:#4=32424=32;=62=61ckg=72o=75n=64:w=68=69te">D=61=73 Hon=6F=
+=72ar =62el=E4uft =73ic=68, =77=69e i=6E A=72tike=6C 3 =62es=63h=72i=65b=65n, =
+abh=E4ng=69g vom Br=75ttoj=61hres=67e=68alt<=2Fs=70an>=3C=6F:p></o:p></l=69>=
+=3Cli cl=61s=73=3D"Mso=4E=6F=72mal" =73t=79le=3D"m=73o-ma=72=67i=6E-=74o=70=2D=
+alt:=61ut=6F;m=73o-mar=67i=6E-=62o=74to=6D-alt=3A=61uto=3B=6Dso-=6Cist:l0 =6Ce=
+v=65l1 l=66o=31=22>
+=3Cs=70an s=74yle=3D"fon=74=2Dfa=6Di=6Cy:&=71u=6Ft;A=72i=61l&quot=3B,=73ans-s=
+=65r=69=66;=63=6F=6C=6F=72=3A#4=32=342=342=3Bbackgr=6Fun=64:=77hite"=3E=44a=73=
+ =56=65r=6Dittl=75ngshono=72=61r =62et=72=E4=67t</s=70=61=6E><s=70an =73tyle=
+=3D=22font-fa=6Dily:&qu=6F=74;Ar=69al&q=75ot=3B,san=73-se=72i=66=3B=63ol=6Fr:#=
+=344=3444=34=22>
+<s=74rong><span =73tyl=65=3D"=66on=74-fami=6Cy=3A=26=71=75ot;=41=72=69al=26quo=
+t;,=73a=6Es-serif;b=61c=6Bgr=6F=75nd=3Awhit=65">3=3C/sp=61n>=3C/strong></=73=
+=70an=3E=3C=73=74rong=3E<span =73tyl=65=3D"=66ont-fam=69ly=3A=26quot;Arial&=71=
+u=6Ft;,sa=6Es-=73=65r=69f;c=6F=6Co=72:#=342424=32=3Bba=63=6Bground:wh=69te">=
+=32 % des Jah=72=65s=7Aiel=67ehalte=73<=2Fspa=6E=3E</=73=74=72ong>=3Cs=70a=6E =
+=73=74yle=3D"=66on=74-f=61mi=6Cy:&quot=3BA=72ia=6C&=71uo=74;,sans-s=65r=69=66=
+=3B=63=6F=6Cor:=23424=32=342;b=61c=6Bg=72=6Fund:wh=69t=65=22>,
+ mi=6E=64es=74e=6Es =6Aedo=63=68 =65ine Pau=73=63h=61le vo=6E=3C/span><s=70a=
+=6E style=3D"f=6Fn=74-family:=26quot;Arial&quot;=2Csan=73-s=65rif;color:#44444=
+4=22>
+</s=70=61n><=73=74=72=6Fng><=73p=61=6E sty=6Ce=3D"=66=6Fnt=2Df=61=6Dil=79:&q=
+=75=6Ft;=41rial&q=75=6Ft;,sans=2Ds=65=72if;color:#42=34=3242;back=67rou=6E=64:=
+w=68=69t=65">15.00=30<=2Fs=70=61=6E=3E<=2Fstrong=3E=3C=73=74=72=6Fng><span s=
+=74=79le=3D=22=66ont-=66ami=6Cy:&quot=3B=41r=69al=26=71u=6Ft;=2Cs=61n=73=2Ds=
+=65ri=66;c=6Flor:#444444;backgr=6Fund:wh=69te=22=3E EU=52=3C/spa=6E></strong=
+=3E<sp=61=6E =73ty=6C=65=3D"=66=6Fnt-famil=79:&=71u=6Ft;=41ria=6C&=71uot=3B=2C=
+sans=2D=73=65=72i=66;colo=72=3A=234=344=3444;backg=72o=75=6E=64:white"=3E.<=2F=
+=73=70an=3E<=6F:=70=3E</=6F:p>=3C/=6C=69>=3Cli cla=73=73=3D"=4D=73oN=6F=72mal"=
+ =73=74y=6C=65=3D"m=73o-m=61rg=69=6E-top-a=6Ct=3Aau=74=6F;mso=2Dm=61=72=67in-b=
+ott=6F=6D=2D=61l=74=3Aau=74o;mso-li=73t:=6C0 =6Cevel1 lf=6F1=22>
+<sp=61n =73tyl=65=3D"=66ont=2Dfam=69ly=3A&qu=6F=74;Arial=26=71=75=6F=74;=2Csan=
+s-s=65=72if;=63=6F=6Cor=3A#=342=3424=32=3Bb=61ck=67r=6F=75n=64:=77=68ite"=3ED=
+=69e =52echn=75n=67=73stel=6Cu=6Eg e=72=66o=6Cgt, wie es in Ar=74=69k=65l 5 be=
+=73=63hrieben ist, u=6Ed d=69=65 =42=65zah=6Cung in=6Eerha=6C=62 vo=6E 1=34 T=
+=61=67e=6E =61=62 Rech=6E=75=6Egsdatum.</s=70=61n><o=3A=70></o=3A=70></l=69>=
+=3C/ul>
+<d=69v=3E
+<p class=3D"=4D=73oNorm=61l"><=73p=61n st=79=6C=65=3D=22font-fam=69l=79:&qu=6F=
+=74;=41=72ial=26=71uo=74;,san=73-=73erif=3B=63=6Flor=3A#42424=32;=62a=63kg=72=
+=6Fu=6Ed:whit=65">=53oll=74en Sie no=63h Frage=6E =68a=62en =6Fd=65=72 weite=
+=72=65 =55n=74erst=FCtzung b=65n=F6tige=6E=2C st=65he=6E wir Ihn=65n g=65rn=65=
+ z=75r V=65rf=FC=67u=6E=67.</spa=6E>
+<o:=70><=2Fo:p=3E=3C/p=3E
+=3C/di=76>
+<p c=6Cas=73=3D"Mso=4E=6Fr=6Da=6C"=3E<o=3A=70>=26=6E=62sp;=3C/o=3A=70=3E=3C=2F=
+p>
+<=64iv=3E
+<p c=6Cass=3D"=4DsoNo=72m=61=6C=22=3E<s=70a=6E s=74yle=3D=22font-famil=79:&=71=
+=75ot;Ar=69al=26qu=6Ft;,sans-se=72=69=66;=63=6F=6Cor:=234242=342=3Bbac=6B=67=
+=72=6Fund=3A=77h=69te"=3EF=FC=72 =65ine =42e=73t=E4=74=69=67=75ng =64e=72 AGB =
+k=F6=6E=6Een Si=65 un=73 g=65r=6Ee =65=69n=65 E=2DM=61i=6C =6Di=74 =66o=6Cge=
+=6E=64e=6D Satz s=65=6E=64=65=6E=3A &quo=74;<=2Fs=70a=6E><sp=61n s=74yle=3D"fo=
+=6Et-fami=6Cy:&quot;=41=72ial&q=75ot;,=73ans-ser=69f;c=6F=6C=6F=72:=23444=34=
+=34=34=22>
+</s=70an=3E<=73=74r=6F=6Eg=3E<span style=3D"=66on=74-f=61mi=6Cy:&=71uot=3BAria=
+l&=71=75=6Ft;=2Csans-serif;=63o=6C=6Fr:#42=342=34=32=3B=62ack=67ro=75nd=3Awhit=
+=65">Hi=65rm=69t bes=74=E4=74=69=67e ich, da=73s ich d=69=65 Al=6C=67e=6D=65=
+=69n=65n =47esch=E4f=74sb=65di=6E=67=75ng=65n d=65=72 S=74on=65=62er=67 I=54 R=
+=65cr=75=69=74me=6E=74 =47m=62H =65=72halte=6E un=64 zur Ken=6E=74n=69=73 =67=
+=65=6Eo=6Dm=65n h=61b=65. Ich erkl=E4re mich =64=61mi=74
+ e=69n=76=65rstan=64e=6E=2C =64as=73 diese AG=42 f=FC=72 u=6Es=65re =47es=63h=
+=E4=66=74=73be=7Aiehu=6Eg =62inde=6Ed sin=64=3C=2F=73pa=6E><=2F=73=74=72=6Fng=
+=3E=3Cs=70=61n s=74yle=3D"fon=74-fa=6Dily:&quot;=41ri=61l&=71=75ot;,s=61ns-=73=
+er=69f=3B=63ol=6Fr=3A#4=32=34242;=62ackgro=75n=64=3A=77hite">.</=73pa=6E>
+<=6F:p></=6F=3Ap>=3C/p>
+<=2Fdi=76=3E
+<p class=3D"=4Ds=6FNormal=22=3E<o=3Ap>=26nbs=70;=3C/=6F:p=3E</p>
+<d=69=76=3E
+<=70 c=6Ca=73s=3D"M=73=6FNorm=61l=22=3E<span st=79=6C=65=3D=22=66ont-f=61mil=
+=79:=26q=75ot=3B=41r=69=61l&quot;,sans-=73e=72if;co=6C=6F=72:#424=3242=3Bbackg=
+rou=6Ed:whi=74=65=22>=42=65ste =47r=FC=DFe,<=2F=73pan>
+<o:p></o:=70>=3C/p>
+</di=76>
+<=70 =63l=61ss=3D"MsoNorm=61=6C"=3E<o:=70>=26n=62sp;<=2F=6F=3A=70></=70>
+=3C=64=69v>
+<=64iv>
+<=64=69v=3E
+<di=76=3E
+=3Cp class=3D"M=73=6FNo=72=6Dal=22>=3Cstr=6Fng><sp=61=6E =73tyle=3D"fon=74=2D=
+=73=69z=65=3A9.0=70t;=66=6Fnt-fa=6Dily:&qu=6F=74=3B=48=65lv=65t=69ca&=71uo=74;=
+,=73=61ns-=73er=69=66">H=75=6Eg =54r=61n<=2Fspan></=73trong><s=70=61n =73=74y=
+=6Ce=3D"font=2D=73ize:9.0pt=3Bf=6Fnt-=66amily:&q=75ot;H=65l=76etica=26q=75o=74=
+;=2C=73ans=2D=73er=69f">
+<o:=70></o:=70=3E</=73p=61n><=2F=70=3E
+</=64=69v=3E
+=3Cd=69v>
+<di=76=3E
+=3Cp =63=6Cas=73=3D"MsoN=6Frm=61l">=3C=73pan =73=74yl=65=3D=22f=6Fnt-=73=69ze:=
+9.=30p=74=3B=66=6F=6E=74-family:&qu=6F=74;=48=65lveti=63=61&=71uot=3B,sans-ser=
+i=66">=41s=73ociate =50ar=74ner
+<=6F=3Ap></o:p></s=70a=6E></=70=3E
+<=2Fdi=76>
+=3C=70 =63=6C=61=73=73=3D=22M=73o=4E=6Frm=61l">=3C=73=70an =73ty=6Ce=3D=22=66o=
+=6E=74-siz=65:=39.=30p=74;=66ont-=66ami=6Cy:&qu=6Ft;H=65=6Cvet=69ca&quot;,sans=
+-s=65ri=66">=3Co:=70>&nbs=70;<=2Fo:=70=3E</s=70an></p>
+<div>
+<p =63la=73s=3D"=4D=73oNormal"=3E<span sty=6C=65=3D"font-=73iz=65:9.0pt=3B=66=
+=6F=6Et-=66amily:&quot;Helvetica&q=75ot;=2Csa=6Es=2Dser=69=66=22=3E=53to=6Eebe=
+r=67 IT Re=63r=75=69tm=65=6E=74 Gm=62H
+<=6F:=70></o:=70></=73=70an></=70=3E
+<=2Fdiv>
+<div=3E
+=3Cp c=6C=61ss=3D=22M=73o=4Eorm=61l=22>=3Cspan s=74y=6Ce=3D"=66ont-siz=65:=39=
+=2E=30p=74;=66=6F=6Et-fa=6Dil=79:=26q=75ot;=48=65l=76etica&qu=6Ft;,s=61ns-se=
+=72i=66">B=6C=FCten=73tra=DF=65 20
+<=6F=3Ap></=6F=3Ap=3E<=2Fs=70=61=6E></=70>
+</div>
+<div>
+<=70 clas=73=3D"M=73=6FN=6Frma=6C=22=3E<spa=6E =73=74=79=6C=65=3D=22fon=74-siz=
+e:=39.0pt=3Bf=6F=6Et-fa=6Dil=79=3A&qu=6F=74;H=65lvetica=26quot;=2C=73a=6E=73-s=
+e=72i=66=22>8079=39 =4D=FCnc=68en
+<=6F:p></o=3A=70><=2F=73pan><=2Fp>
+=3C/div=3E
+<=70 cl=61=73s=3D=22MsoNormal"><=73pan sty=6C=65=3D"f=6Fnt=2D=73iz=65:9.=30=70=
+t;f=6F=6Et-f=61m=69ly=3A=26quot;=48elve=74ic=61&qu=6F=74;=2Csan=73-s=65rif=22>=
+<a hre=66=3D"http=3A//www.stoneberg.de/"=3Eww=77.st=6Fn=65berg.=64e</a>
+<=6F=3Ap>=3C/o=3A=70=3E<=2F=73p=61n><=2F=70=3E
+</div>
+=3Cd=69=76>
+<p class=3D=22M=73oNormal"=3E=3C=73p=61=6E sty=6Ce=3D=22=66ont=2Ds=69z=65=3A=
+=39.0pt;fo=6Et-=66amil=79=3A=26q=75=6F=74;H=65lv=65=74i=63a&qu=6Ft=3B=2Csans=
+=2D=73erif"=3E<o:p>&=6E=62=73=70=3B</o=3Ap=3E</sp=61n=3E</=70>
+<div=3E
+<p =63las=73=3D"=4D=73oN=6F=72=6Dal=22=3E=3C=73pan =73ty=6C=65=3D"=66=6F=6E=74=
+-si=7Ae:=39.0pt;fon=74-fa=6Di=6Cy:=26=71=75=6Ft=3B=48e=6Cv=65tic=61&q=75o=74;,=
+sa=6Es-seri=66=22=3ETel=65f=6F=6E=3A &=6Eb=73=70;+=349 =38=39 904 =322=31=31 2=
+=33
+<o:=70>=3C/=6F:p=3E=3C=2Fspa=6E><=2Fp>
+<=2Fd=69v>
+<div=3E
+<=70 cl=61ss=3D"=4D=73oN=6Frm=61l"><sp=61n s=74yle=3D"fo=6Et-=73i=7Ae:=39.0p=
+=74;=66=6Fnt=2D=66a=6Dily:&qu=6Ft=3B=48e=6Cv=65=74ica&q=75ot;,=73ans-serif"=3E=
+T=65=6C=65fax: &n=62sp=3B+49 89 90=34 2211 20
+=3Co:p></=6F=3Ap></=73p=61n>=3C/p>
+=3C/d=69v>
+=3Cdiv=3E
+=3C=70 cl=61ss=3D"=4D=73o=4Eormal"><span s=74=79le=3D"=66=6F=6E=74-size:=39.0p=
+=74;=66o=6E=74-famil=79=3A&q=75=6Ft=3BHelv=65tic=61=26quo=74;=2Cs=61ns-s=65rif=
+">E=2D=4Da=69=6C=3A=26nbsp;
+<=61 h=72ef=3D"mailto:=68=75=6Eg.tr=61n@=73=74=6Fn=65ber=67-it.d=65">hung.tran=
+=40stoneberg=2Ede</=61=3E <o:p=3E</=6F:p>=3C/=73pan=3E<=2Fp=3E
+<=2Fd=69v>
+</div=3E
+<div>
+<p =63=6C=61=73s=3D"MsoNor=6Dal">=3C=73p=61n sty=6C=65=3D=22fo=6Et-=73=69z=65:=
+9=2E0=70=74;=66=6F=6Et-f=61mi=6Cy:&quot;=48e=6C=76eti=63a=26quot;,=73a=6Es=2Ds=
+=65r=69f">=26=6Eb=73=70=3B
+<=6F:p=3E=3C=2F=6F=3Ap><=2Fs=70a=6E></p=3E
+=3C/=64i=76>
+=3C/=64iv>
+<=64i=76>
+=3Cp><a =68r=65f=3D"http=73://=74.s=69d=65k=69=63k=6Fpe=6E23=2Ec=6Fm=2F=43=74=
+=63/=5AU+23284/=6411=71cd=304=2FJk=382-6q=37W5=42=570=42=30=36lZ3n6=575=42cp=
+=33=5F7x1bNmW=39=37NW=5Fw2C=43=5FZX=57=38mP=53=6B=4420JsgDW=389D9Y=5F=34cLkC=
+=71W1=35KJ=38D3c=54=6Bzh=574=56Qw=36C1w8=2DK=6DVZ=63v=686=36D=2D=74=37=4B=57=
+=31RB6tm=36=77K1b=54=4E4H=76BDD=2Dk=52RJVg=66pjY6mzkB=78=57=33bNN=5AT=31=44T=
+=5FQ8=5720=6CKXs62=56F=447W5=58Gd=79Z=358ZB=64WN31Qhb=79=6E=77lh=5AVjKs=4B=38=
+=32f=38YF=57W=317f=52=5AQ6w2=50=35=4EW=3425=56=6754P5=43=2Dq=4E90Mx9w19=53fr=
+=667J4pMd0=34">=3Csp=61=6E st=79l=65=3D"=66ont-si=7Ae=3A=39=2E0p=74=3Bfont=2D=
+=66amily:&qu=6Ft=3BHelvet=69ca&=71uo=74;=2Cs=61=6E=73-=73eri=66;t=65xt-de=63o=
+=72ati=6F=6E=3Ano=6Ee">=3Cimg b=6F=72de=72=3D"0" width=3D=2260" he=69gh=74=3D"=
+=36=35=22 style=3D"=77id=74=68=3A.62=35in;heig=68t:.6=375i=6E" id=3D"=5F=780=
+=3000=5Fi=310=328=22 s=72c=3D=22ci=64:i=6D=61g=65002.=70ng=400=31D9B=3570=2E37=
+8=35A=33D0" a=6Ct=3D=22STO=4EEBERG=22><=2Fspan=3E=3C/a=3E<span =73ty=6Ce=3D=22=
+fo=6Et-=73i=7Ae=3A=39.0pt=3B=66=6F=6Et-fami=6Cy:&=71=75=6Ft;Helvet=69ca=26quot=
+;=2Csa=6Es-s=65=72if"=3E<o:=70=3E<=2Fo:p>=3C/=73pan=3E<=2Fp=3E
+<div =63=6Cass=3D"M=73oNo=72ma=6C=22 =61lign=3D=22c=65nter=22 s=74=79=6Ce=3D"t=
+e=78t=2Da=6Cign=3Ac=65=6Ete=72=22=3E<=73p=61n st=79l=65=3D"f=6F=6E=74-=73iz=65=
+:9.0pt;f=6Fnt=2Dfami=6Cy=3A&=71=75ot=3BHe=6C=76eti=63a&=71uot;,=73ans-=73=65=
+=72if=22>
+<=68r s=69z=65=3D"=31=22 =77=69dth=3D=22100%" no=73ha=64e=3D"" sty=6Ce=3D"c=6F=
+=6Co=72:#=410=410A0=22 =61lign=3D"cen=74er">
+</=73=70=61n></di=76>
+=3Cp><=73=70a=6E st=79le=3D"f=6Fnt=2Ds=69ze=3A8.0=70t=3B=66on=74-f=61mil=79:=
+=26quo=74=3B=48=65=6Cve=74ica&quot;=2Csa=6Es-=73er=69f">Ston=65=62=65rg IT Rec=
+ru=69tmen=74 =47m=62=48 =7C Sitz=3A M=FC=6Echen | =41mtsg=65=72icht M=FCn=63he=
+=6E, HRB 2=361460 | USt-IdNr.: DE 3372735=300 | =47e=73ch=E4f=74s=66=FC=68=72e=
+r: =43o=6Eg T=6Fa=6E Nguye=6E=2C Vie=74 Duc Ngu=79en=3C/s=70=61=6E=3E=3C=73pan=
+ styl=65=3D=22font=2D=73ize:=39.0p=74=3Bfont-f=61=6Di=6C=79:&q=75=6F=74=3BHe=
+=6Cv=65ti=63a&quot;,=73=61ns-=73=65r=69f">=3C=6F:=70><=2Fo:=70=3E</=73=70an></=
+=70>
+</=64iv>
+</=64i=76=3E
+<di=76=3E
+<=70 c=6C=61ss=3D"Ms=6F=4E=6F=72ma=6C">&nbs=70; <o:p>=3C/o:p></=70=3E
+=3C/div>
+</=64i=76>
+<=70 cla=73=73=3D=22Ms=6F=4Eor=6Da=6C">=3C=62r=3E
+<img b=6Frd=65=72=3D"=30" widt=68=3D"1" h=65=69gh=74=3D"1" =73=74yl=65=3D=22wi=
+d=74h=3A.=30083in;he=69ght:.=3008=33in" id=3D=22=5Fx=30=300=30=5Fi10=327" src=
+=3D"cid=3Aimage=3004=2Epng@=301D=39B=3570.378=35A=33D=30=22><o:p>=3C/=6F:p>=3C=
+/=70>
+</di=76>
+</=64i=76=3E
+</body>
+</=68tml=3E
+--_000_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_--
+
+--_006_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_
+Content-Type: image/png; name="image001.png"
+Content-Description: image001.png
+Content-Disposition: inline; filename="image001.png"; size=4273;
+	creation-date="Thu, 13 Jul 2023 07:35:55 GMT";
+	modification-date="Thu, 13 Jul 2023 07:35:57 GMT"
+Content-ID: <image001.png@01D9B56D.6C115C00>
+Content-Transfer-Encoding: base64
+
+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
+
+--_006_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_
+Content-Type: image/png; name="image002.png"
+Content-Description: image002.png
+Content-Disposition: inline; filename="image002.png"; size=7375;
+	creation-date="Thu, 13 Jul 2023 07:55:55 GMT";
+	modification-date="Thu, 13 Jul 2023 07:55:56 GMT"
+Content-ID: <image002.png@01D9B570.3785A3D0>
+Content-Transfer-Encoding: base64
+
+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
+/x8KnkFNGlOBNgAAAABJRU5ErkJggg==
+
+--_006_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_
+Content-Type: image/png; name="image004.png"
+Content-Description: image004.png
+Content-Disposition: inline; filename="image004.png"; size=98;
+	creation-date="Thu, 13 Jul 2023 07:55:56 GMT";
+	modification-date="Thu, 13 Jul 2023 07:55:56 GMT"
+Content-ID: <image004.png@01D9B570.3785A3D0>
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEUAAAAAAAClZ7nPAAAAAXRS
+TlMAQObYZgAAAApJREFUeF5jYAAAAAIAAd6ej78AAAAASUVORK5CYII=
+
+--_006_GV1PR10MB63476FB7E6A7E5D3947DC189FB37AGV1PR10MB6347EURP_--
+
+--NoSpamProxy_d662607b-b818-4578-8043-86eb68ac5b3c
+Content-Transfer-Encoding: BASE64
+Content-Type: application/pkcs7-signature; name=smime.p7s
+Content-Disposition: attachment; filename=smime.p7s
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDTALBglghkgBZQMEAgEwCwYJKoZIhvcNAQcBoIIY+DCCBeAw
+ggPIoAMCAQICEFEZVxqE0tJ7gTyDyHKgu5cwDQYJKoZIhvcNAQELBQAwgYExCzAJBgNVBAYTAklU
+MRAwDgYDVQQIDAdCZXJnYW1vMRkwFwYDVQQHDBBQb250ZSBTYW4gUGlldHJvMRcwFQYDVQQKDA5B
+Y3RhbGlzIFMucC5BLjEsMCoGA1UEAwwjQWN0YWxpcyBDbGllbnQgQXV0aGVudGljYXRpb24gQ0Eg
+RzMwHhcNMjMwMzE0MTIyMDA1WhcNMjQwMzE0MTIyMDA0WjAeMRwwGgYDVQQDDBNnLmh1dGhAd2Fn
+ZW1hbm4ubmV0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArsVNG7O4xmJ+joSsQeeZ
+iSRyQJWugmV0is+NdXiXfx4mglvVgtP/134696O3R3/JG1Ch/0PhbiMoPMBGRB0j4MEjglI8lJNl
+j9sBkKsePTCCgkA/y1PJWR1hQzOzRxLrtKnvTa1vlXn5nUsIMEkcUQm+SbbuY4xWGCrbwbXzDDFj
+F8YVu6yeEmpOZq+9YZvsHT8H6jGrk8iBq7RE4MV2+PQv06a3MOyzc5vDmqrmSK5mMuugbsvnz4b+
+L/wNul0STNf2jzuiGfNn05oWwgVNd4w4D4pEyhsOSKVR98s6PB4i1vf9phy7Mo1lR8zj59RA/o2L
+QLuk0hAv41SC3zDSVQIDAQABo4IBtDCCAbAwDAYDVR0TAQH/BAIwADAfBgNVHSMEGDAWgBS+l6mq
+hL+AvxBTfQky+eEuMhvPdzB+BggrBgEFBQcBAQRyMHAwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jYWNl
+cnQuYWN0YWxpcy5pdC9jZXJ0cy9hY3RhbGlzLWF1dGNsaWczMDEGCCsGAQUFBzABhiVodHRwOi8v
+b2NzcDA5LmFjdGFsaXMuaXQvVkEvQVVUSENMLUczMB4GA1UdEQQXMBWBE2cuaHV0aEB3YWdlbWFu
+bi5uZXQwRwYDVR0gBEAwPjA8BgYrgR8BGAEwMjAwBggrBgEFBQcCARYkaHR0cHM6Ly93d3cuYWN0
+YWxpcy5pdC9hcmVhLWRvd25sb2FkMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDBIBgNV
+HR8EQTA/MD2gO6A5hjdodHRwOi8vY3JsMDkuYWN0YWxpcy5pdC9SZXBvc2l0b3J5L0FVVEhDTC1H
+My9nZXRMYXN0Q1JMMB0GA1UdDgQWBBRjo/Egsr3cKMLpjZy38sbTcTbHsjAOBgNVHQ8BAf8EBAMC
+BaAwDQYJKoZIhvcNAQELBQADggIBAD1Us/pLxZy6lu4XdIiFcFCBELpKpOl71VK595D3PTdh+QaL
+x38CTR16cQf4Q3FH63lKVbqQ6331Ezx689Enl1EUdE5or4qwOt9Ew0FlIP4r3VOUmGxTm0VaNCdF
+qnTJHv+xzIzMtQzo7FXIYBmr7Zqpcyfuiks/RMnjOGU6nRRAd2LnOAo03CTVf5ndrzz3SPKEn7qu
+sInRt3pulyAfFRK7zjJNl3E1PzvaBXTmX6Ksf545URRQvjYDhHBSEFH30zUDpBdWTcN3TrDg7Xcp
+nDsyks3RvfUgqYmPZRCRjarzqWw8RJMNPzBG2ZSg21dRwBPEXacD3/i67AN0rkz1SF8VJfMjHIXM
+ia7KnvswKnwTRSlHlkopUbwikRL3aMlvRmnYTLsWHVsRzwjXFwJ7G05Ps7GU79dlrt761fd/FyQP
+6orS9ACCZtbLsQ2cciLYHGJtyX3noX/2FpisV4bsAaaSenOVK53JbJm2tia7BdTORWOMy30aJN0r
+Nb2rfj7orI+Az9rij3DvFemNu+q7JvbNymwA4+bIcVLVgZAKGk1n3+3EgSBg7u4Oh6+NGY95VCHX
++CslT2NClNBwf7sSN1KtmIVswJVK2wP7hxmZ5OVv4aaytYkKZpLtucb+8VQ9QYu2vyrxeqTB/3Do
+CvknuvscQaTWxDU0DKn78P+MMo/eMIIF4DCCA8igAwIBAgIQURlXGoTS0nuBPIPIcqC7lzANBgkq
+hkiG9w0BAQsFADCBgTELMAkGA1UEBhMCSVQxEDAOBgNVBAgMB0JlcmdhbW8xGTAXBgNVBAcMEFBv
+bnRlIFNhbiBQaWV0cm8xFzAVBgNVBAoMDkFjdGFsaXMgUy5wLkEuMSwwKgYDVQQDDCNBY3RhbGlz
+IENsaWVudCBBdXRoZW50aWNhdGlvbiBDQSBHMzAeFw0yMzAzMTQxMjIwMDVaFw0yNDAzMTQxMjIw
+MDRaMB4xHDAaBgNVBAMME2cuaHV0aEB3YWdlbWFubi5uZXQwggEiMA0GCSqGSIb3DQEBAQUAA4IB
+DwAwggEKAoIBAQCuxU0bs7jGYn6OhKxB55mJJHJAla6CZXSKz411eJd/HiaCW9WC0//Xfjr3o7dH
+f8kbUKH/Q+FuIyg8wEZEHSPgwSOCUjyUk2WP2wGQqx49MIKCQD/LU8lZHWFDM7NHEuu0qe9NrW+V
+efmdSwgwSRxRCb5Jtu5jjFYYKtvBtfMMMWMXxhW7rJ4Sak5mr71hm+wdPwfqMauTyIGrtETgxXb4
+9C/Tprcw7LNzm8OaquZIrmYy66Buy+fPhv4v/A26XRJM1/aPO6IZ82fTmhbCBU13jDgPikTKGw5I
+pVH3yzo8HiLW9/2mHLsyjWVHzOPn1ED+jYtAu6TSEC/jVILfMNJVAgMBAAGjggG0MIIBsDAMBgNV
+HRMBAf8EAjAAMB8GA1UdIwQYMBaAFL6XqaqEv4C/EFN9CTL54S4yG893MH4GCCsGAQUFBwEBBHIw
+cDA7BggrBgEFBQcwAoYvaHR0cDovL2NhY2VydC5hY3RhbGlzLml0L2NlcnRzL2FjdGFsaXMtYXV0
+Y2xpZzMwMQYIKwYBBQUHMAGGJWh0dHA6Ly9vY3NwMDkuYWN0YWxpcy5pdC9WQS9BVVRIQ0wtRzMw
+HgYDVR0RBBcwFYETZy5odXRoQHdhZ2VtYW5uLm5ldDBHBgNVHSAEQDA+MDwGBiuBHwEYATAyMDAG
+CCsGAQUFBwIBFiRodHRwczovL3d3dy5hY3RhbGlzLml0L2FyZWEtZG93bmxvYWQwHQYDVR0lBBYw
+FAYIKwYBBQUHAwIGCCsGAQUFBwMEMEgGA1UdHwRBMD8wPaA7oDmGN2h0dHA6Ly9jcmwwOS5hY3Rh
+bGlzLml0L1JlcG9zaXRvcnkvQVVUSENMLUczL2dldExhc3RDUkwwHQYDVR0OBBYEFGOj8SCyvdwo
+wumNnLfyxtNxNseyMA4GA1UdDwEB/wQEAwIFoDANBgkqhkiG9w0BAQsFAAOCAgEAPVSz+kvFnLqW
+7hd0iIVwUIEQukqk6XvVUrn3kPc9N2H5BovHfwJNHXpxB/hDcUfreUpVupDrffUTPHrz0SeXURR0
+TmivirA630TDQWUg/ivdU5SYbFObRVo0J0WqdMke/7HMjMy1DOjsVchgGavtmqlzJ+6KSz9EyeM4
+ZTqdFEB3Yuc4CjTcJNV/md2vPPdI8oSfuq6widG3em6XIB8VErvOMk2XcTU/O9oFdOZfoqx/njlR
+FFC+NgOEcFIQUffTNQOkF1ZNw3dOsODtdymcOzKSzdG99SCpiY9lEJGNqvOpbDxEkw0/MEbZlKDb
+V1HAE8RdpwPf+LrsA3SuTPVIXxUl8yMchcyJrsqe+zAqfBNFKUeWSilRvCKREvdoyW9GadhMuxYd
+WxHPCNcXAnsbTk+zsZTv12Wu3vrV938XJA/qitL0AIJm1suxDZxyItgcYm3Jfeehf/YWmKxXhuwB
+ppJ6c5Urnclsmba2JrsF1M5FY4zLfRok3Ss1vat+Puisj4DP2uKPcO8V6Y276rsm9s3KbADj5shx
+UtWBkAoaTWff7cSBIGDu7g6Hr40Zj3lUIdf4KyVPY0KU0HB/uxI3Uq2YhWzAlUrbA/uHGZnk5W/h
+prK1iQpmku25xv7xVD1Bi7a/KvF6pMH/cOgK+Se6+xxBpNbENTQMqfvw/4wyj94wggdtMIIFVaAD
+AgECAhAXED7ePYoctcoGUZPnykNrMA0GCSqGSIb3DQEBCwUAMGsxCzAJBgNVBAYTAklUMQ4wDAYD
+VQQHDAVNaWxhbjEjMCEGA1UECgwaQWN0YWxpcyBTLnAuQS4vMDMzNTg1MjA5NjcxJzAlBgNVBAMM
+HkFjdGFsaXMgQXV0aGVudGljYXRpb24gUm9vdCBDQTAeFw0yMDA3MDYwODQ1NDdaFw0zMDA5MjIx
+MTIyMDJaMIGBMQswCQYDVQQGEwJJVDEQMA4GA1UECAwHQmVyZ2FtbzEZMBcGA1UEBwwQUG9udGUg
+U2FuIFBpZXRybzEXMBUGA1UECgwOQWN0YWxpcyBTLnAuQS4xLDAqBgNVBAMMI0FjdGFsaXMgQ2xp
+ZW50IEF1dGhlbnRpY2F0aW9uIENBIEczMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA
+7eaHlqHBpLbtwkJV9z8PDyJgXxPgpkOIhkmReRwbLxpQD9xGAe72ujqGzFFh78QPgAhxKVqtGHzY
+eq0VJVCzhnCKRBbVX+JwIhL3ULYhUAZrViUp952qDB6qTL5sGeJS9F69VPSR5k6pFNw7mHDTTt0v
+oWFg2aVkG3khomzVXoieJGOiQ4dH76paCtQbLkt59joAKz2BnwGLQ4wr09nfumJt5AKx2YxHK2Xg
+SPslVZ4z8G00gimsfA7UtjT/wiekY6Z0b7ksLrEcvODncHQe9VSrNRA149SE3AlkWaZM/joVei/G
+Yfj9K5jkiReinR4mqM353FEceLOeBhSTURpMdQ5wsXLi9DSTGBuNv4aw2Dozb/qBlkhGTvwk92mi
+0jAecE22Sn3A9UfrU2p1w/uRs+TIteQ0xO0B/J2mY2caqocsS9SsriIGlQ8b0LT0o6Ob07KGtPa5
+/lIvMmx572Dv2v+vDiECByxm1Hdgjp8JtE4mdyYP6GBscJyT71NZw1zXHnFkyCbxReag9qaSR9x4
+CVVXj1BDmNROCqd5NAfIXUXYTFeZ/jukQigkxXGWhEhfLBC4Ha6pwizz9fq1+wwPKcWaF9P/SZOu
+BDrG30MiyCZa66G9mEtF5ZLuh4rGfKqxy4Z5Mxecuzt+MZmrSKfKGeXOeED/iuX5Z02M1o7iMS8C
+AwEAAaOCAfQwggHwMA8GA1UdEwEB/wQFMAMBAf8wHwYDVR0jBBgwFoAUUtiIOsifeGbtifN7OHCU
+yQICNtAwQQYIKwYBBQUHAQEENTAzMDEGCCsGAQUFBzABhiVodHRwOi8vb2NzcDA1LmFjdGFsaXMu
+aXQvVkEvQVVUSC1ST09UMEUGA1UdIAQ+MDwwOgYEVR0gADAyMDAGCCsGAQUFBwIBFiRodHRwczov
+L3d3dy5hY3RhbGlzLml0L2FyZWEtZG93bmxvYWQwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUF
+BwMEMIHjBgNVHR8EgdswgdgwgZaggZOggZCGgY1sZGFwOi8vbGRhcDA1LmFjdGFsaXMuaXQvY24l
+M2RBY3RhbGlzJTIwQXV0aGVudGljYXRpb24lMjBSb290JTIwQ0EsbyUzZEFjdGFsaXMlMjBTLnAu
+QS4lMmYwMzM1ODUyMDk2NyxjJTNkSVQ/Y2VydGlmaWNhdGVSZXZvY2F0aW9uTGlzdDtiaW5hcnkw
+PaA7oDmGN2h0dHA6Ly9jcmwwNS5hY3RhbGlzLml0L1JlcG9zaXRvcnkvQVVUSC1ST09UL2dldExh
+c3RDUkwwHQYDVR0OBBYEFL6XqaqEv4C/EFN9CTL54S4yG893MA4GA1UdDwEB/wQEAwIBBjANBgkq
+hkiG9w0BAQsFAAOCAgEAJpvnG1kNdLMSA+nnVfeEgIXNQsM7YRxXx6bmEt9IIrFlH1qYKeNw4NV8
+xtop91Rle168wghmYeCTP10FqfuKMZsleNkI8/b3PBkZLIKOl9p2Dmz2Gc0I3WvcMbAgd/IuBtx9
+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
+Ff/CB7axjQ+OXFBGsz2/AZhPsllURz40e3htVpMuc+pmKHjNHRS/oI8vLrgujvIUiszptXz7bJ0M
+peGWMYAwgAIBATCBljCBgTELMAkGA1UEBhMCSVQxEDAOBgNVBAgMB0JlcmdhbW8xGTAXBgNVBAcM
+EFBvbnRlIFNhbiBQaWV0cm8xFzAVBgNVBAoMDkFjdGFsaXMgUy5wLkEuMSwwKgYDVQQDDCNBY3Rh
+bGlzIENsaWVudCBBdXRoZW50aWNhdGlvbiBDQSBHMwIQURlXGoTS0nuBPIPIcqC7lzALBglghkgB
+ZQMEAgGgggJOMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTIzMDcx
+MzA3NTYwM1owLwYJKoZIhvcNAQkEMSIEIOlQLRyVCYoVT6RkRhXqy79r/5ghJsXJT5ghkGQB0Skg
+MIGMBgkqhkiG9w0BCQ8xfzB9MAcGBSsOAwIaMAsGCWCGSAFlAwQCATALBglghkgBZQMEAgIwCwYJ
+YIZIAWUDBAIDMAoGCCqGSIb3DQMHMAsGCWCGSAFlAwQBAjALBglghkgBZQMEAQYwCwYJYIZIAWUD
+BAEWMAsGCWCGSAFlAwQBKjALBglghkgBZQMEAS4wgacGCSsGAQQBgjcQBDGBmTCBljCBgTELMAkG
+A1UEBhMCSVQxEDAOBgNVBAgMB0JlcmdhbW8xGTAXBgNVBAcMEFBvbnRlIFNhbiBQaWV0cm8xFzAV
+BgNVBAoMDkFjdGFsaXMgUy5wLkEuMSwwKgYDVQQDDCNBY3RhbGlzIENsaWVudCBBdXRoZW50aWNh
+dGlvbiBDQSBHMwIQURlXGoTS0nuBPIPIcqC7lzCBqQYLKoZIhvcNAQkQAgsxgZmggZYwgYExCzAJ
+BgNVBAYTAklUMRAwDgYDVQQIDAdCZXJnYW1vMRkwFwYDVQQHDBBQb250ZSBTYW4gUGlldHJvMRcw
+FQYDVQQKDA5BY3RhbGlzIFMucC5BLjEsMCoGA1UEAwwjQWN0YWxpcyBDbGllbnQgQXV0aGVudGlj
+YXRpb24gQ0EgRzMCEFEZVxqE0tJ7gTyDyHKgu5cwDQYJKoZIhvcNAQEBBQAEggEAQ/+R4bHcgcP7
+FOxBf+nAc+cQZhLGRt3Y2zY4xFS7GG4lATkjzYv2JEx/4OyTJ2XProa9fN56yIYJfSGDG2a3xuUC
+bl3En/cHyaaRjUXaSQvdilTqoTziXr6Ysdq1b1xVlxQWB4kc1GB85EcTX292/9NZf71LyTpqEN1V
+9fFby9hKXZCxrBgH+Oozhy8IR47/p94EDwYnqHGhj7lYOwQrlTGydvK5qlHZn3CkWNBIKWqKuwua
+cWrYC5usWcXEC5lr8z+ZuM16q6ttdUOFQiEF2ZEARrpblG4YjkIIVrvqPgsk+wdh/A3o9z+26IUp
+N+CE7tROrjpYDCq+7zpW9agExgAAAAAAAAAAAAA=
+
+--NoSpamProxy_d662607b-b818-4578-8043-86eb68ac5b3c--

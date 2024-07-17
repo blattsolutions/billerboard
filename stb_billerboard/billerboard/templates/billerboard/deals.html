@@ -1,0 +1,117 @@
+{% extends "billerboard/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        {% if request.user.is_superuser %}<h3>Alle Deals</h3>
+        {% else %}
+        <h3>Meine Deals</h3>
+        {% endif %}
+        <div class="table-responsive">
+            
+                <div class="row">
+                                        <div class="col-sm-12">
+                <table id="example2" class="table table-striped table-bordered dataTable" role="grid" aria-describedby="example2_info">
+                <thead>
+                    <tr role="row">
+                        {% if request.user.is_superuser %}
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Vertriebler</th>
+                        {% endif %}
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Unternehmen</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Quelle KU</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Kandidat</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Quelle CA</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Dealsumme</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Ausgezahlt</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Deal geclosed am</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Antrittsdatum</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Kulanz bis</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Beweisgrundlage</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Shares</th>
+                   {% if request.user.is_superuser %}
+                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Genehmigt von</th>
+                    {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for deal in deals %}
+                <tr role="row" class="odd">
+                      {% if request.user.is_superuser %}
+                        <td class="">
+                        {% if request.user.is_superuser %}<a href="{% url "deals_user" deal.user.id%}">{% endif %}
+                            {{deal.user.first_name}} {{deal.user.last_name}}
+                        {% if request.user.is_superuser %}</a>{% endif %}
+                        </td>
+                        {% endif %}
+                        <td>{{deal.unternehmen}}</td>
+                        {% if deal.unternehmen_von %}
+                        <td>{{deal.get_unternehmen_von_display}}</td>
+                        {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        <td>{{deal.kandidat.kontakt.vorname}} {{deal.kandidat.kontakt.nachname}}</td>
+
+                        {% if deal.kandidat_von %}
+                                  <td>{{deal.get_kandidat_von_display}}</td>              
+                                                {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        
+                        <td>{{deal.amount}}€</td>
+                        <td>{{deal.auszahlungssumme}}€</td>
+                        <td>{{deal.deal_closed_at|date:"d.m.Y" }}</td>
+                        <td>{{deal.antrittsdatum|date:"d.m.Y" }}</td>
+                        <td>{% if deal.kulanz_bis %}{{deal.kulanz_bis|date:"d.m.Y" }}{% else %}-{% endif %}</td>
+                        <td>{% if deal.beweisgrundlage %}{% for beweis in deal.beweisgrundlage %}
+                            <i class="bx bx-check"></i>{{beweis.name}}<br>{% endfor %}
+                            {% endif %} <a href="{% url "deal_daten_einreichen" deal.id %}">
+                                <i class="bx bx-upload green"></i>
+                            </a>
+                        </td>
+                        <td><div class="row"><div class="col">{% for share in deal.shares %}{{share}}{% endfor %}</div><div class="col"> <a style="text-align: right;" href=""><i class="lni lni-customer"></i></a></div></div></td>
+                        <td>{% if deal.genehmigt_von %}{{deal.genehmigt_von.first_name}} {{deal.genehmigt_von.last_name}}{% else %}<a href={% url 'deal_genehmigen' deal.id %}>Genehmigen </a> {% endif %}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static "assets/plugins/datatable/js/jquery.dataTables.min.js"%}"></script>
+<script src="{% static "assets/plugins/datatable/js/dataTables.bootstrap5.min.js"%}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/2.0.0/sorting/datetime-moment.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $.fn.dataTable.moment( 'DD.MM.YYYY' );
+
+        var table = $('#example2').DataTable( {
+            lengthChange: false,
+            paging: false,
+            buttons: [ 'copy', 'excel', 'pdf', 'csv', 'print'],
+            {% if request.user.is_superuser %}
+            order: [[ 7, "desc" ]],
+            {% else %}
+            order: [[ 6, "desc" ]],
+            {% endif %}
+
+            //columnDefs: [{ type: 'date', targets: [5,6] }],
+        } );
+     
+        table.buttons().container()
+            .appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+            console.log(table);
+    } );
+</script>
+
+{% endblock scripts %}

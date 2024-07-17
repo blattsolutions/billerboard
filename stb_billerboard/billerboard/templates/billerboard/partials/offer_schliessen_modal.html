@@ -1,0 +1,21 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Prozess Schließen</h5>
+      </div>
+      <form method="POST" action="{% url 'offer_schliessen_lost' offer_id %}">
+      <div class="modal-body">
+
+  {% csrf_token %}
+<textarea name="reason" class="form-control" placeholder="Grund für das Schließen des Offers"></textarea>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Offer Schließen</button>
+<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+
+      </div>
+    </form>
+    </div>
+  </div>

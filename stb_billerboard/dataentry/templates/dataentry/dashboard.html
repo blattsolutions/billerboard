@@ -1,0 +1,292 @@
+{% extends "billerboard/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load avatar_tags %}
+{% load custom_filters %}
+
+
+{% block content %}
+
+{% if messages %}
+
+    {% for message in messages %}
+    <div class="alert alert-success border-0 bg-success alert-dismissible fade show py-2">
+        <div class="d-flex align-items-center">
+            <div class="font-35 text-white"><i class="bx bxs-check-circle"></i>
+            </div>
+            <div class="ms-3">
+                <h6 class="mb-0 text-white">Yayyyy</h6>
+                <div class="text-white">{{ message }}</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endif %}
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-xxl-3">
+    <div class="col">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <p class="mb-0 text-secondary">Neue Kontakte dieser Monat</p>
+                        <h4 class="my-1">{{kontakte_added_this_month|intcomma}}</h4>
+                        {% if difference_kontakte > 0 %}
+                        <p class="mb-0 font-13 text-success"><i class="bx bxs-up-arrow align-middle"></i>+{{difference_kontakte|intcomma}} zum Vormonat</p>
+                    {% else %}
+                        <p class="mb-0 font-13 text-danger"><i class="bx bxs-down-arrow align-middle"></i>{{difference_kontakte|intcomma}} zum Vormonat</p>
+                    {% endif %}
+                    </div>
+                    <div class="widgets-icons bg-light-success text-success ms-auto"><i class='bx bx-euro'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <p class="mb-0 text-secondary">Neue Unternehmen dieser Monat</p>
+                        <h4 class="my-1">{{unternehmen_added_this_month|intcomma }}</h4>
+                        {% if difference_unternehmen >= 0 %}
+                        <p class="mb-0 font-13 text-success"><i class="bx bxs-up-arrow align-middle"></i>{{difference_unternehmen}} zum Vormonat</p>
+                        {% else%}
+                        <p class="mb-0 font-13 text-danger"><i class="bx bxs-down-arrow align-middle"></i>{{difference_unternehmen}} zum Vormonat</p>
+                    {% endif %}
+                    </div>
+                    <div class="widgets-icons bg-light-info text-info ms-auto"><i class="lni lni-handshake"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <p class="mb-0 text-secondary">Ausgaben dieser Monat</p>
+                        <h4 class="my-1">{{kosten_dieser_monat|intcomma}}€</h4>
+                        {% if difference_kosten >= 0 %}
+                        <p class="mb-0 font-13 text-success"><i class="bx bxs-up-arrow align-middle"></i>{{difference_kosten|intcomma}}€</p>
+                        {% else%}
+                        <p class="mb-0 font-13 text-danger"><i class="bx bxs-down-arrow align-middle"></i>{{difference_kosten|intcomma}}€</p>
+                    {% endif %}
+                    </div>
+                    <div class="widgets-icons bg-light-warning text-warning ms-auto"><i class="bx bx-line-chart-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div><!--end row-->
+
+<div class="row">
+   <div class="col-12 col-lg-8 d-flex">
+      <div class="card radius-10 w-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+                <div>
+                    <h6 class="mb-0">Top Performer diesen Monat</h6>
+                    
+                </div>
+                
+            </div>
+            <div class="">
+                
+
+                <div class="row row-cols-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-3">
+                    {% if top3_performers|length >= 2 %}
+                    {% with second_tuple=top3_performers.1 %}
+                        
+                    <div class="col">
+                        <div class="card text-center mt-5">
+                            <h2><i class="lni lni-crown" style="color: silver !important;"></i></h2>
+                            {% avatar second_tuple.0 class="rounded-circle mx-auto"%}
+                            <div class="card-body">
+                                
+                                <h5 class="card-title">2. Platz</h5>
+                                <h4 class="card-title">{{second_tuple.0.first_name}} {{second_tuple.0.last_name}}</h4>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><h3>{{ second_tuple.1.revenue }}€ Umsatz</h3></li>
+                                <li class="list-group-item"><h4>{{ second_tuple.1.deals }} Entries</h4></li>
+                    
+                            </ul>
+                        </div>
+                    </div>
+                    {% endwith %}
+                    {% else %}
+                    <div class="col">
+                        <div class="card text-center mt-5">
+                            <h2><i class="lni lni-crown" style="color: silver !important;"></i></h2>
+                            <div class="card-body">
+                                
+                                <h5 class="card-title">2. Platz</h5>
+                                <h4 class="card-title">Noch zu vergeben!</h4>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                    {% if top3_performers|length >= 1 %}
+                    {% with second_tuple=top3_performers.0 %}
+                    <div class="col">
+                        
+
+                        <div class="card text-center colorchange">
+                            <h1><i class="lni lni-crown " style="color: gold !important;"></i></h1>
+                            {% avatar second_tuple.0 class="rounded-circle mx-auto" id="1stplace" %}
+                            <div class="card-body">
+                                
+                                <h5 class="card-title">1. Platz</h5>
+                                <h4 class="card-title">{{second_tuple.0.first_name}} {{second_tuple.0.last_name}}</h4>
+                            </div>
+                            <ul class="list-group list-group-flush colorchange ">
+                                <li class="list-group-item colorchange" style="border: none !important;"><h3>{{ second_tuple.1.revenue }}€ Umsatz</h3></li>
+                                <li class="list-group-item colorchange"style="border: none !important;"><h4>{{ second_tuple.1.deals }} Entries</h4></li>
+                    
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    {% endwith %}
+                    {% else %}
+                    <div class="col">
+                        
+
+                        <div class="card text-center colorchange">
+                            <h1><i class="lni lni-crown " style="color: gold !important;"></i></h1>
+            
+                            <div class="card-body">
+                                
+                                <h5 class="card-title">1. Platz</h5>
+                                <h4 class="card-title">Noch zu vergeben!</h4>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if top3_performers|length >= 3 %}
+                    {% with second_tuple=top3_performers.2 %}
+                    <div class="col">
+                        <div class="card text-center mt-5">
+                            <h1><i class="lni lni-crown" style="color: #CD7F32 !important;"></i></h1>
+                            {% avatar second_tuple.0 class="rounded-circle mx-auto"%}
+                            <div class="card-body">
+                                
+                                <h5 class="card-title">3. Platz</h5>
+                                <h4 class="card-title">{{second_tuple.0.first_name}} {{second_tuple.0.last_name}}</h4>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><h3>{{ second_tuple.1.revenue }}€ Umsatz</h3></li>
+                                <li class="list-group-item"><h4>{{ second_tuple.1.deals }} Entries</h4></li>
+                    
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    {% endwith %}
+                    {% else %}
+                    <div class="col">
+                        <div class="card text-center mt-5">
+                            <h1><i class="lni lni-crown" style="color: #CD7F32 !important;"></i></h1>
+                           
+                            <div class="card-body">
+                                
+                                <h5 class="card-title">3. Platz</h5>
+                                <h4 class="card-title">Noch zu vergeben!</h4>
+                            </div>
+                         
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                </div>
+                
+              </div>
+              <div>
+                <table class="table align-middle mb-0">
+                    <th>Rang</th>
+                    <th>Name</th>
+                    <th>Umsatz</th>
+                    <th>Deals</th>
+                  {% for user, values in rest_performers.items %}
+                  <tr>
+                    <td>{{forloop.counter|add:"3"}}</td>
+                    <td>{{user.first_name}} {{user.last_name}}</td>
+                    <td>{{values.revenue}}€</td>
+                    <td>{{values.deals}}</td>
+                  </tr>
+                  
+                  {% empty%}
+                  No Entries
+                  {% endfor %}
+                    </table>
+              </div>
+          </div>
+        
+
+            
+    
+          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 g-0 row-group text-center border-top">
+            <div class="col">
+              <div class="p-3">
+                <h5 class="mb-0">{{zahl_unternehmen}}</h5>
+                <small class="mb-0">Unternehmen gesamt<span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>
+              </div>
+            </div>
+            <div class="col">
+              <div class="p-3">
+                <h5 class="mb-0">{{zahl_kontakte}}</h5>
+                <small class="mb-0">Kontakte gesamt <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
+              </div>
+            </div>
+          </div>
+      </div>
+   </div>
+   <div class="col-12 col-lg-4 d-flex">
+       <div class="card radius-10 w-100">
+           <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div>
+                    <h6 class="mb-0">Letzte Listen</h6>
+                </div>
+             </div>
+
+              <div class="table-responsive mt-3">
+                    <table class="table align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Fortschritt</th>
+                                <th>Eingereicht am</th> 
+                                <th>Refresh Liste</th>                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for liste in letzte_zehn_imports %}
+                            <tr>
+                                <td><a href="{% url "viewlist" liste.id %}">{{liste.import_liste.name}}</a></td>
+                                <td>{{liste.anzahl_completed}} / {{liste.anzahl_unternehmen}} </td>
+                                <td>{{liste.import_liste.datum}}</td>
+                                <td><a href="{% url 'refresh_liste' liste.import_liste.id %}"><i class="bx bx-refresh"></i></a></td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+           </div>
+        
+       </div>
+   </div>
+</div><!--end row-->
+{% endblock content %}

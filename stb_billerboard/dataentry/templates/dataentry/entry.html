@@ -1,0 +1,87 @@
+{% extends 'billerboard/base.html' %}
+
+{% block content %}
+
+
+ <div class="container-fluid" >
+    <div class="row">
+        <div class="col-6">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+            <div class="col text-start fs-3">
+                <strong>{{assignment.unternehmen}} {{assignment.unternehmen.id}}<br>PLZ: {{assignment.unternehmen.plz}}</strong>
+            </div>
+            <div class="col text-end">
+                <a href="{% url "hold" assignment.id %}" class="btn btn-secondary text-end" id="">Halten</a>
+            <a href="" class="btn btn-warning text-end disabled" id="skip-button">Überspringen in: <span id="time">15:00</span></a>
+        </div>
+        </div>
+        <div class="card-body">
+            <form method='post'>
+                {% csrf_token %}
+          {{unternehmenform.as_p}}
+          {{kontaktform.as_p}}
+          <input type="text" name="assignment" value="{{assignment.id}}" hidden>
+        </div>
+        <div class="card-footer text-muted">
+            <input type="submit" value="Speichern" formmethod="post" class="btn btn-success"></input>
+        </div>
+    </form>
+    {% if form.errors %}
+    Errors:
+{{ form.errors}}
+{% endif %}
+      </div>
+      
+</div>
+
+
+</div>
+<div class="col-4">
+
+    <div class="card border-secondary mb-3" style="max-width: 18rem;">
+        <div class="card-header">Gehaltene Entries {{assignment.assigned_to.dataentryprofile.on_hold_count}} / 10</div>
+        <div class="card-body text-secondary">
+            {% for hold in assignment.assigned_to.dataentryprofile.on_hold  %}
+            {% if not hold == assignment %}
+            <a href="{% url "entry" hold.id %}"class="card-text">{{forloop.counter}}: {{hold}}</a><br>
+            {% endif %}
+            {% endfor %}
+         
+        </div>
+      </div>
+      
+</div>
+</div>
+
+<script>
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+            document.getElementById("skip-button").classList.remove("disabled");
+            document.getElementById("skip-button").textContent = "Überspringen";
+            display.textContent = '';
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = {{assignment.get_timer}},
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};
+</script>
+
+{% endblock content %}

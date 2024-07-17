@@ -1,0 +1,57 @@
+
+
+   <div class="card-body"
+    id="top-performers">
+        <div class="align-items-center">
+            <div class="row">
+                <div class="col">
+                    <h6 class="mb-0">Top-Performer {{month}} {{year}}</h6>
+                </div>
+                <div class="col-2 float-right">
+                   <a href="#"
+                   hx-get="{% url 'top_performers_month' year=prevyear month=prevmonth %}"
+                   hx-target="#top-performers"
+                   hx-indicator="#indicator"> <i class="lni lni-arrow-left"></i></a>
+                  
+                   <a href="#"
+                   hx-get="{% url 'top_performers_month' year=nextyear month=nextmonth %}"
+                   hx-target="#top-performers"
+                   hx-indicator="#indicator"><i class="lni lni-arrow-right"></i></a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="table-responsive mt-3">
+            <table class="table align-middle mb-0">
+
+            <th>Rang</th>
+            <th>Name</th>
+            <th>Umsatz</th>
+            <th>Deals</th>
+          {% for user, values in userdictmonth.items %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{user.first_name}} {{user.last_name}}</td>
+            <td>{{values.revenue|floatformat:"2g"}}€</td>
+            <td>{{values.deals}}</td>
+          </tr>
+          
+          {% empty%}
+          <tr>
+          <td>Keine Deals :(</td>
+          <td/>
+          <td/>
+          <td/>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td><strong>Gesamt: </strong></td>
+            <td><strong>{{gesamt|floatformat:"2g"}}€</strong></td>
+            <td/>
+            <td/>
+     
+            </table>          
+    </div> 
+</div>
+</div>

@@ -1,0 +1,8 @@
+
+{% for rang in ranks %}
+<tr role="row" class="odd">
+<td class="sorting" tabindex="0">{{rang.user.user.first_name}} {{rang.user.user.last_name}} (Userid:{{rang.user.user.id}})</td>
+<td class="sorting" tabindex="0">{{rang.rang}}</td>
+<td class="sorting" tabindex="0">{{rang.rang_updated_at}}</td>
+</tr>
+    {% endfor %}

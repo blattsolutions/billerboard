@@ -1,0 +1,94 @@
+{% extends "billerboard/base.html" %}
+{% load static %}
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+<div class="card">
+    <div class="card-body p-4">
+        <h5 class="mb-4">Unternehmen eintragen</h5>
+        {{blacklistform.as_p}}
+        <button type="submit" class="btn btn-success">Speichern</button>
+    </div>
+</div>
+</form>
+
+<div class="card">
+    <div class="card-body">
+     <h3>Blackliste</h3>
+      
+        <div class="table-responsive">
+            
+                <div class="row">
+                                        <div class="col-sm-12">
+                <table id="example2" class="table table-striped table-bordered dataTable" role="grid" aria-describedby="example2_info">
+                <thead>
+                    <tr role="row">
+
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Unternehmen</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Hinzugefügt von</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Hinzugefügt am</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Grund</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in blacklist %}
+                <tr role="row" class="odd">
+                        <td class="">{{p.unternehmen}}</td>
+                        <td>{{p.blacklist_added_by.first_name}} {{p.blacklist_added_by.last_name}}</td>
+                        <td>{{p.blacklist_added_at|date:"d.m.Y" }}</td>
+                        <td>{{p.grund}}</td>
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Unternehmen</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Hinzugefügt von</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Hinzugefügt am</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Konditionen</th>
+
+                        </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static "assets/plugins/datatable/js/jquery.dataTables.min.js"%}"></script>
+<script src="{% static "assets/plugins/datatable/js/dataTables.bootstrap5.min.js"%}"></script>
+
+
+<script>
+    $(document).ready(function() {
+        var table = $('#example2').DataTable( {
+            lengthChange: false,
+            paging: false,
+            buttons: [ 'copy', 'excel', 'pdf', 'csv', 'print']
+        } );
+     
+        table.buttons().container()
+            .appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+            console.log(table);
+    } );
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/i18n/defaults-de_DE.min.js"></script>
+
+<script>
+    $('select').selectpicker();
+  </script>
+{% endblock scripts %}
