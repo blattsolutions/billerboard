@@ -104,6 +104,9 @@ def dashboard(request):
             if abteilung.name == 'Finance':
                 umsatz_finance += d.amount
                 deals_finance += 1
+            if abteilung.name == 'Legal':
+                umsatz_finance += d.amount
+                deals_finance += 1
         if not d.user in userdict:
             if  d.shares():
                 rev = d.amount
