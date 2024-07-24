@@ -176,6 +176,9 @@ class Deal(models.Model):
     unternehmen_von = models.CharField(max_length=200, null=True, blank=True, choices=QUELLENKU_CHOICES)
     bonding_mail = models.BooleanField(default=False)
     abteilung = models.ForeignKey('userauth.Abteilung', on_delete=models.CASCADE, blank=True, null=True)
+    storniert = models.BooleanField(default=False)
+    storniert_am = models.DateField(null=True, blank=True)
+    storniert_von = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='storniert_von')
 
 
     def auszahlungssumme(self):

@@ -39,7 +39,7 @@ from .tasks import daily_iv_reset, daily_bonding_mail_check
 
 @login_required()
 def dashboard(request):
-    #daily_bonding_mail_check.delay()
+    daily_bonding_mail_check.delay()
     umsatzziel_monat = Umsatzziel.objects.filter(date__month=timezone.now().month).filter(date__year=timezone.now().year).first()
     
     umsatzziel_jah_obj = Umsatzziel.objects.filter(date__year=timezone.now().year)
@@ -356,6 +356,16 @@ def deal_genehmigen(request, deal_id):
         deal = Deal.objects.get(id=deal_id)
         deal.genehmigt = True
         deal.genehmigt_von = request.user
+        deal.save()
+        return redirect('deals')
+
+@login_required()
+def deal_storno(request, deal_id):
+    if request.user.is_superuser:
+        deal = Deal.objects.get(id=deal_id)
+        deal.storniert = True
+        deal.storniert_von = request.user
+        deal.storniert_am = timezone.now()
         deal.save()
         return redirect('deals')
 

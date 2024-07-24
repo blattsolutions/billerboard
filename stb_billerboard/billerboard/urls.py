@@ -58,6 +58,7 @@ urlpatterns = [
     path('blackliste/', views.blackliste, name='blackliste'),
     path('deals/einreichen/', views.deal_einreichen, name='deal_einreichen'),
     path('deals/genehmigen/<int:deal_id>', views.deal_genehmigen, name='deal_genehmigen'),
+    path('deals/storno/<int:deal_id>', views.deal_storno, name='deal_storno'), 
     path('deals/dateneinreichen/<int:deal_id>', views.deal_daten_einreichen, name='deal_daten_einreichen'),
     path('deals/', views.deals, name='deals'),
     path('deals/user/<int:user_id>/', views.deals_user, name='deals_user'),
