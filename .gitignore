@@ -3,3 +3,4 @@ venv/
 Python-3.12.0/
 */**/settings.py
 media/
+.vscode/
