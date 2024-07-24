@@ -425,7 +425,8 @@ def deal_daten_einreichen(request, deal_id):
             from_email = 'Stoneberg Billerboard <no-reply@stoneberg.work>'
             to = "thuy.dokim@stoneberg-it.de"
             mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
-            
+            to ="rick.stawitzki@stoneberg.de"
+            mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
             return redirect('dashboard')
         else:
             print(dealdatenform.errors)
