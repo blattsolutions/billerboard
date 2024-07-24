@@ -39,7 +39,7 @@ from .tasks import daily_iv_reset, daily_bonding_mail_check
 
 @login_required()
 def dashboard(request):
-    daily_bonding_mail_check.delay()
+
     umsatzziel_monat = Umsatzziel.objects.filter(date__month=timezone.now().month).filter(date__year=timezone.now().year).first()
     
     umsatzziel_jah_obj = Umsatzziel.objects.filter(date__year=timezone.now().year)
@@ -819,10 +819,10 @@ def prozessboard_alte_prozesse(request):
     if request.user.is_superuser:
         if request.method == 'GET':
             prozesse = ProzessEntry.objects.filter(ist_abgeschlossen=True)
-            
-            return render(request, 'billerboard/prozessboard.html', {'prozesse': prozesse, 
+            offer = Offer.objects.filter(ist_abgeschlossen=True)
+            return render(request, 'billerboard/prozess_static.html', {'prozesse': prozesse, 
                                                                      'form': ProzessEntryForm(),
-                                                                     'anzahl_prozesse': prozesse.count(),
+                                                                     'anzahl_prozesse': prozesse.count()+offer.count(),
                                                                      'gesamt_revenue': sum([p.revenue for p in prozesse]),})
 
 @login_required()
