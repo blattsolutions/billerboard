@@ -1,5 +1,5 @@
 #ignore venv folder
 venv/
 Python-3.12.0/
-*/**/settings.py
+**/settings.py
 stb_billerboard/media/uploads/
