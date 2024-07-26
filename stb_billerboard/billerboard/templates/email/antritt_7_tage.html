@@ -1,0 +1,20 @@
+Hallo,<br>
+<br>
+ein Kandidat aus einem deiner Deals tritt bald seine neue Stelle an:<br>
+<br>
+Vertriebspartner: {{deal.user.first_name}} {{deal.user.last_name}} ({{deal.user.email}})
+Kunde: {{ deal.unternehmen }}<br>
+Kandidat: {{ deal.kandidat }}<br>
+Summe: {{ deal.amount }}<br>
+Close-Datum: {{ deal.deal_closed_at }}<br>
+Antrittsdatum: {{ deal.antrittsdatum }}<br>
+Kulanz bis: {% if deal.kulanz_bis %}{{ deal.kulanz_bis }}{% else %}-{% endif %}<br>
+<br>
+Vielleicht möchtest du nochmal beim Kunden oder Kandidaten nachhaken, ob alles für den Antritt vorbereitet ist.
+<br>
+
+Alle Angaben erfolgen ohne Gewähr. 
+<br>
+
+Viele Grüße<br>
+Dein Billerboard-Team

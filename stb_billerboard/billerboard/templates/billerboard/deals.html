@@ -23,20 +23,21 @@
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Kandidat</th>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Quelle CA</th>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Dealsumme</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Abteilung</th>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Ausgezahlt</th>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Deal geclosed am</th>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Antrittsdatum</th>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Kulanz bis</th>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Beweisgrundlage</th>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Shares</th>
-                   {% if request.user.is_superuser %}
+    
                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Genehmigt von</th>
-                    {% endif %}
+                
                     </tr>
                 </thead>
                 <tbody>
                     {% for deal in deals %}
-                <tr role="row" class="odd">
+                <tr role="row" class="odd {% if deal.storniert %}table-danger{% endif %}">
                       {% if request.user.is_superuser %}
                         <td class="">
                         {% if request.user.is_superuser %}<a href="{% url "deals_user" deal.user.id%}">{% endif %}
@@ -44,7 +45,7 @@
                         {% if request.user.is_superuser %}</a>{% endif %}
                         </td>
                         {% endif %}
-                        <td>{{deal.unternehmen}}</td>
+                        <td><span class="text-truncate" style="display: inline-block; max-width: 20rem;">{{deal.unternehmen}}</span></td>
                         {% if deal.unternehmen_von %}
                         <td>{{deal.get_unternehmen_von_display}}</td>
                         {% else %}
@@ -59,18 +60,27 @@
                         {% endif %}
                         
                         <td>{{deal.amount}}€</td>
+                        <td>{{deal.abteilung}}</td>
                         <td>{{deal.auszahlungssumme}}€</td>
                         <td>{{deal.deal_closed_at|date:"d.m.Y" }}</td>
                         <td>{{deal.antrittsdatum|date:"d.m.Y" }}</td>
                         <td>{% if deal.kulanz_bis %}{{deal.kulanz_bis|date:"d.m.Y" }}{% else %}-{% endif %}</td>
                         <td>{% if deal.beweisgrundlage %}{% for beweis in deal.beweisgrundlage %}
                             <i class="bx bx-check"></i>{{beweis.name}}<br>{% endfor %}
-                            {% endif %} <a href="{% url "deal_daten_einreichen" deal.id %}">
+                            {% endif %} 
+                            <a href="{% url "deal_daten_einreichen" deal.id %}">
                                 <i class="bx bx-upload green"></i>
                             </a>
                         </td>
-                        <td><div class="row"><div class="col">{% for share in deal.shares %}{{share}}{% endfor %}</div><div class="col"> <a style="text-align: right;" href=""><i class="lni lni-customer"></i></a></div></div></td>
-                        <td>{% if deal.genehmigt_von %}{{deal.genehmigt_von.first_name}} {{deal.genehmigt_von.last_name}}{% else %}<a href={% url 'deal_genehmigen' deal.id %}>Genehmigen </a> {% endif %}</td>
+                        <td>{% for share in deal.shares %}{{share}}<br>{% endfor %}<!--<<div class="col"> a style="text-align: right;" href=""><i class="lni lni-customer"></i></a>--></td>
+                        
+                        <td>{% if deal.genehmigt_von %}{{deal.genehmigt_von.first_name}} {{deal.genehmigt_von.last_name}}{% elif request.user.is_superuser %}
+                           
+                            <a href={% url 'deal_genehmigen' deal.id %}>Genehmigen </a> <br>
+                            <a href={% url 'deal_storno' deal.id %}>Storno </a>
+                            {% else %}
+                            -
+                            {% endif %}</td>
                     </tr>
                     {% endfor %}
 
