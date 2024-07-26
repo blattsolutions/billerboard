@@ -2,4 +2,4 @@
 venv/
 Python-3.12.0/
 */**/settings.py
-*/stb_billerboard/media/uploads
+stb_billerboard/media/uploads/
