@@ -101,9 +101,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'billerboard',
-        'USER': 'billerboard_user',
-        'PASSWORD': 'Plw18*n88',
-        'HOST': 'localhost',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -132,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "de-de"
+LANGUAGE_CODE = "en-US"
 
 TIME_ZONE = "UTC"
 
@@ -206,12 +206,12 @@ CELERY_IMPORTS = [
 
 
 #REDIS Cache
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-        "LOCATION": "127.0.0.1:11211",
-    }
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+#         "LOCATION": "127.0.0.1:11211",
+#     }
+# }
 #CACHES = {
 #    "default": {
 #         "BACKEND": "django.core.cache.backends.dummy.DummyCache",
@@ -226,16 +226,16 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
 #Sentry
-sentry_sdk.init(
-    dsn="https://7c027c8d6f7561e25c7aa47ab9217396@o4506386918342656.ingest.sentry.io/4506386920439808",
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    traces_sample_rate=1.0,
-    # Set profiles_sample_rate to 1.0 to profile 100%
-    # of sampled transactions.
-    # We recommend adjusting this value in production.
-    profiles_sample_rate=1.0,
-)
+#sentry_sdk.init(
+#    dsn="https://7c027c8d6f7561e25c7aa47ab9217396@o4506386918342656.ingest.sentry.io/4506386920439808",
+#    # Set traces_sample_rate to 1.0 to capture 100%
+#    # of transactions for performance monitoring.
+#    traces_sample_rate=1.0,
+#    # Set profiles_sample_rate to 1.0 to profile 100%
+#    # of sampled transactions.
+#    # We recommend adjusting this value in production.
+#    profiles_sample_rate=1.0,
+#ß)
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 

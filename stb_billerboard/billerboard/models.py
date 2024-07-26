@@ -348,3 +348,30 @@ class ToolKostenRechnung(models.Model):
     genehmigt_am = models.DateField(null=True, blank=True)
     lexoffice_id = models.CharField(max_length=200, null=True, blank=True)
     rechnungsdatum = models.DateField(auto_now_add=True)
+
+class DailySurveyQuestion(models.Model):
+    data = models.TextField()
+    level = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.data
+
+
+class DailySurveyAnswer(models.Model):
+    data = models.TextField()
+    question = models.ForeignKey(DailySurveyQuestion, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    dailySurvey = models.ForeignKey('DailySurvey', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.data
+
+
+class DailySurvey(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f'Survey by {self.user}'

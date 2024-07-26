@@ -1,0 +1,206 @@
+{% extends "billerboard/base.html" %} {% load static %} {% load humanize %} {%
+load avatar_tags %} {% load custom_filters %} {% block content %}
+
+
+<div class="page-content">
+  <!--end breadcrumb-->
+  <!--start stepper three-->
+  <h6 class="text-uppercase">Daily Survey Form</h6>
+  <hr />
+  <div class="card">
+    
+    <div class="card-body">
+      <div id="stepper3" class="bs-stepper gap-4 vertical linear">
+        <div class="bs-stepper-header" role="tablist">
+          <div class="step active" data-target="#test-vl-1">
+            <div class="step-trigger" role="tab" id="stepper3trigger1" aria-controls="test-vl-1" aria-selected="true">
+            <div class="bs-stepper-circle"><i class="bx bx-user fs-4"></i></div>
+            <div class="">
+              <h5 class="mb-0 steper-title">Personal Info</h5>
+              <p class="mb-0 steper-sub-title">Enter Your Details</p>
+            </div>
+            </div>
+          </div>
+        
+          <div class="step" data-target="#test-vl-2">
+            <div class="step-trigger" role="tab" id="stepper3trigger2" aria-controls="test-vl-2" aria-selected="false" disabled="disabled">
+              <div class="bs-stepper-circle"><i class="bx bx-file fs-4"></i></div>
+              <div class="">
+                <h5 class="mb-0 steper-title">Account Details</h5>
+                <p class="mb-0 steper-sub-title">Setup Account Details</p>
+              </div>
+            </div>
+          </div>
+        
+          <div class="step" data-target="#test-vl-3">
+            <div class="step-trigger" role="tab" id="stepper3trigger3" aria-controls="test-vl-3" aria-selected="false" disabled="disabled">
+              <div class="bs-stepper-circle"><i class="bx bxs-graduation fs-4"></i></div>
+              <div class="">
+                <h5 class="mb-0 steper-title">Education</h5>
+                <p class="mb-0 steper-sub-title">Education Details</p>
+              </div>
+            </div>
+            </div>
+          
+            <div class="step" data-target="#test-vl-4">
+              <div class="step-trigger" role="tab" id="stepper3trigger4" aria-controls="test-vl-4" aria-selected="false" disabled="disabled">
+              <div class="bs-stepper-circle"><i class="bx bx-briefcase fs-4"></i></div>
+              <div class="">
+                <h5 class="mb-0 steper-title">Work Experience</h5>
+                <p class="mb-0 steper-sub-title">Experience Details</p>
+              </div>
+              </div>
+            </div>
+           </div>
+
+           <div class="bs-stepper-content">
+          <form id="surveyForm" onsubmit="return false">
+            {% csrf_token %}
+            <div id="test-vl-1" role="tabpane3" class="bs-stepper-pane content fade active dstepper-block" aria-labelledby="stepper3trigger1">
+            <h5 class="mb-1">Your Personal Information</h5>
+            <p class="mb-4">Enter your personal information to get closer to copanies</p>
+
+            <div class="row g-3">
+              {% for question in questions%}
+                {% if question.level == 1 %}
+              <div class="col-12 col-lg-6 ">
+                <label for={{question.id}} class="form-label">{{question.data}}</label>
+                <input type="text" class="form-control" id={{question.id}} placeholder="Enter your answer" >
+           
+            </div>
+              {% endif %}
+            {% endfor %}
+           
+              <div class="col-12">
+                <div class="btn btn-primary px-4" onclick="stepper3.next()" >Next<i class="bx bx-right-arrow-alt ms-2"></i></div>
+              </div>
+            </div><!---end row-->
+            
+            </div>
+
+            <div id="test-vl-2" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger2">
+
+            <h5 class="mb-1">Account Details</h5>
+            <p class="mb-4">Enter Your Account Details.</p>
+
+            <div class="row g-3">
+              {% for question in questions%}
+                {% if question.level == 2 %}
+              <div class="col-12 col-lg-6">
+                <label for={{question.id}} class="form-label">{{question.data}}</label>
+                <input type="text" class="form-control" id={{question.id}} placeholder="Enter your answer">
+              </div>
+              {% endif%}
+              {% endfor %}
+              <div class="col-12">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="btn btn-outline-secondary px-4" onclick="stepper3.previous()"><i class="bx bx-left-arrow-alt me-2"></i>Previous</div>
+                  <div class="btn btn-primary px-4" onclick="stepper3.next()">Next<i class="bx bx-right-arrow-alt ms-2"></i></div>
+                </div>
+              </div>
+            </div><!---end row-->
+            
+            </div>
+
+            <div id="test-vl-3" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger3">
+            <h5 class="mb-1">Your Education Information</h5>
+            <p class="mb-4">Inform companies about your education life</p>
+
+            <div class="row g-3">
+              {% for question in questions%}
+                {% if question.level == 3 %}
+              <div class="col-12 col-lg-6">
+                <label for={{question.id}} class="form-label">{{question.data}}</label>
+                <input type="text" class="form-control" id={{question.id}} placeholder="Enter your answer">
+              </div>
+              {% endif %}
+              {% endfor %}
+
+
+              <div class="col-12">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="btn btn-outline-secondary px-4" onclick="stepper3.previous()"><i class="bx bx-left-arrow-alt me-2"></i>Previous</div>
+                  <div class="btn btn-primary px-4" onclick="stepper3.next()">Next<i class="bx bx-right-arrow-alt ms-2"></i></div>
+                </div>
+              </div>
+            </div><!---end row-->
+            
+            </div>
+
+            <div id="test-vl-4" role="tabpane3" class="bs-stepper-pane content fade" aria-labelledby="stepper3trigger4">
+            <h5 class="mb-1">Work Experiences</h5>
+            <p class="mb-4">Can you talk about your past work experience?</p>
+
+            <div class="row g-3">
+              {% for question in questions%}
+                {% if question.level == 4 %}
+              <div class="col-12 col-lg-6">
+                <label for={{question.id}} class="form-label">{{question.data}}</label>
+                <input type="text" class="form-control" id={{question.id}} placeholder="Enter your answer">
+              </div>
+             {% endif %}
+              {% endfor %}
+              <div class="col-12">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="btn btn-primary px-4" onclick="stepper3.previous()"><i class="bx bx-left-arrow-alt me-2"></i>Previous</div>
+                  <button class="btn btn-success px-4" onclick="">Submit</button>
+                </div>
+              </div>
+            </div><!---end row-->
+            
+            </div>
+    <input type="hidden" id="formDataJson" name="formDataJson" />
+
+          </form>
+          </div>
+         </div>
+    </div></div>
+  </div>
+  <!--end stepper three-->
+</div>
+{% endblock %}
+
+
+
+{% block scripts %}
+<link href="{% static "assets/plugins/bs-stepper/css/bs-stepper.css"%}" rel="stylesheet" />
+<script src="{% static "assets/plugins/bs-stepper/js/bs-stepper.min.js"%}"></script>
+<script src="{% static "assets/plugins/bs-stepper/js/main.js"%}"></script>
+<script>
+  stepper3 = new Stepper(document.querySelector("#stepper3"));
+  document.querySelector('.btn-success').addEventListener('click', function() {
+    // Prevent the default action
+    event.preventDefault();
+
+    // Create an object to store the form data
+    let formData = [];
+
+    // Get all input elements inside the form
+    let inputs = document.querySelectorAll('.form-control');
+
+    // Iterate over each input and add its value to the formData object
+    inputs.forEach(function(input) {
+      formData.push({
+        question_id: Number(input.id),
+        answer: input.value
+      });
+    });
+
+    console.log(formData);
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    console.log(csrfToken);
+
+    fetch('/dailysurvey/', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify(formData) 
+    })
+    .then(response => response.json())
+   
+   
+  });
+</script>
+{% endblock scripts %}
