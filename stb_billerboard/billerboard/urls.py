@@ -28,6 +28,7 @@ urlpatterns = [
     
     path('dailysurvey/', views.daily_survey, name='dailysurvey'),
     path('dailysurvey-list/', views.getListSurvey, name='dailysurvey-list'),
+    path('map-list/', views.getListStaff, name='map-list'),
 
     path('team/', views.team, name='team'),
     path('interviewboard/add/', views.addivboard, name='addivboard'),

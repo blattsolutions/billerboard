@@ -39,112 +39,111 @@ from .tasks import daily_iv_reset, daily_bonding_mail_check
 
 @login_required()
 def dashboard(request):
-
-    umsatzziel_monat = Umsatzziel.objects.filter(date__month=timezone.now().month).filter(date__year=timezone.now().year).first()
-    
-    umsatzziel_jah_obj = Umsatzziel.objects.filter(date__year=timezone.now().year)
-    umsatzziel_jahr = 0
-    for u in umsatzziel_jah_obj:
-        umsatzziel_jahr += u.amount
-    
-    last_10_deals = Deal.objects.all().order_by('-deal_closed_at')[:50]
-    deals_this_month = Deal.objects.filter(
-        deal_closed_at__month=timezone.now().month)
-    last_month = timezone.now() - relativedelta(months=1)
-    deals_last_month = Deal.objects.filter(deal_closed_at__month=last_month.month, deal_closed_at__year=last_month.year)
-    deals_this_year = Deal.objects.filter(deal_closed_at__year=timezone.now().year)
-    deals_last_year = Deal.objects.filter(deal_closed_at__year=timezone.now().year-1)
-    revenue_this_month = 0
-    revenue_last_month = 0
-    revenue_this_year = 0
-    revenue_last_year = 0
-    for deal in deals_this_month:
-        revenue_this_month += deal.amount
-    for deal in deals_last_month:
-        revenue_last_month += deal.amount
-    for deal in deals_this_year:
-        revenue_this_year += deal.amount
-    for deal in deals_last_year:
-        revenue_last_year += deal.amount
-    difference_deal_revenue = revenue_this_month - revenue_last_month
-    difference_deal_count = deals_this_month.count() - deals_last_month.count()
-    difference_deal_year = revenue_this_year - revenue_last_year
-    umsatz_engineering = 0
-    umsatz_it = 0
-    umsatz_finance = 0
-    prozent_engineering = 0
-    prozent_it = 0
-    prozent_finance = 0
-    userdict = {}
-    anzahl_engineering = 0
-    anzahl_finance = 0
-    anzahl_it = 0
-    deals_engineering = 0
-    deals_it = 0
-    deals_finance = 0
-    for u in User.objects.all():
-        if u.profile.abteilung:
-            if u.profile.abteilung.name == 'Engineering':
-                anzahl_engineering += 1
-            if u.profile.abteilung.name == 'IT':
-                anzahl_it += 1
-            if u.profile.abteilung.name == 'Finance':
-                anzahl_finance += 1
-
-
-    for d in deals_this_year:
-        abteilung = d.abteilung
-        if abteilung:
-            if abteilung.name == 'Engineering':
-                umsatz_engineering += d.amount
-                deals_engineering += 1
-            if abteilung.name == 'IT':
-                umsatz_it += d.amount
-                deals_it += 1
-            if abteilung.name == 'Finance':
-                umsatz_finance += d.amount
-                deals_finance += 1
-            if abteilung.name == 'Legal':
-                umsatz_finance += d.amount
-                deals_finance += 1
-        if not d.user in userdict:
-            if  d.shares():
-                rev = d.amount
-                for s in d.shares():
-                    rev -= (d.amount * s.prozente/100)
-                userdict[d.user] = {'revenue': rev, 'deals': 1}
-            else:
-                userdict[d.user] = {'revenue': d.amount, 'deals': 1}
-        else:
-            if d.shares():
-                rev = d.amount
-                for s in d.shares():
-                    rev -= (d.amount * s.prozente/100)
-                userdict[d.user]['revenue'] += rev
-                userdict[d.user]['deals'] += 1
-            else:
-                userdict[d.user]['revenue'] += d.amount
-                userdict[d.user]['deals'] += 1
-    for d in deals_this_year:
-        rev = d.amount
-        for share in d.shares():
-            if not share.user in userdict:
-                userdict[share.user] = {'revenue': 0, 'deals': 0}
-            userdict[share.user]['revenue'] += (d.amount * share.prozente/100)
-            userdict[share.user]['deals'] += 1
-
-    # userdict = sorted(userdict, key=lambda x: (userdict[x]['revenue'], userdict[x]['count'])).reverse()
-    
-    userdict = dict(
-        sorted(userdict.items(), key=lambda x: x[1]['revenue'], reverse=True))
-
-
-   
-    prozent_engineering = (umsatz_engineering/revenue_this_year)*100
-    prozent_it = (umsatz_it/revenue_this_year)*100
-    prozent_finance = (umsatz_finance/revenue_this_year)*100
-    prokopf_engineering = umsatz_engineering/anzahl_engineering
     try:
+        umsatzziel_monat = Umsatzziel.objects.filter(date__month=timezone.now().month).filter(date__year=timezone.now().year).first()
+        
+        umsatzziel_jah_obj = Umsatzziel.objects.filter(date__year=timezone.now().year)
+        umsatzziel_jahr = 0
+        for u in umsatzziel_jah_obj:
+            umsatzziel_jahr += u.amount
+        
+        last_10_deals = Deal.objects.all().order_by('-deal_closed_at')[:50]
+        deals_this_month = Deal.objects.filter(
+            deal_closed_at__month=timezone.now().month)
+        last_month = timezone.now() - relativedelta(months=1)
+        deals_last_month = Deal.objects.filter(deal_closed_at__month=last_month.month, deal_closed_at__year=last_month.year)
+        deals_this_year = Deal.objects.filter(deal_closed_at__year=timezone.now().year)
+        deals_last_year = Deal.objects.filter(deal_closed_at__year=timezone.now().year-1)
+        revenue_this_month = 0
+        revenue_last_month = 0
+        revenue_this_year = 0
+        revenue_last_year = 0
+        for deal in deals_this_month:
+            revenue_this_month += deal.amount
+        for deal in deals_last_month:
+            revenue_last_month += deal.amount
+        for deal in deals_this_year:
+            revenue_this_year += deal.amount
+        for deal in deals_last_year:
+            revenue_last_year += deal.amount
+        difference_deal_revenue = revenue_this_month - revenue_last_month
+        difference_deal_count = deals_this_month.count() - deals_last_month.count()
+        difference_deal_year = revenue_this_year - revenue_last_year
+        umsatz_engineering = 0
+        umsatz_it = 0
+        umsatz_finance = 0
+        prozent_engineering = 0
+        prozent_it = 0
+        prozent_finance = 0
+        userdict = {}
+        anzahl_engineering = 0
+        anzahl_finance = 0
+        anzahl_it = 0
+        deals_engineering = 0
+        deals_it = 0
+        deals_finance = 0
+        for u in User.objects.all():
+            if u.profile.abteilung:
+                if u.profile.abteilung.name == 'Engineering':
+                    anzahl_engineering += 1
+                if u.profile.abteilung.name == 'IT':
+                    anzahl_it += 1
+                if u.profile.abteilung.name == 'Finance':
+                    anzahl_finance += 1
+
+
+        for d in deals_this_year:
+            abteilung = d.abteilung
+            if abteilung:
+                if abteilung.name == 'Engineering':
+                    umsatz_engineering += d.amount
+                    deals_engineering += 1
+                if abteilung.name == 'IT':
+                    umsatz_it += d.amount
+                    deals_it += 1
+                if abteilung.name == 'Finance':
+                    umsatz_finance += d.amount
+                    deals_finance += 1
+                if abteilung.name == 'Legal':
+                    umsatz_finance += d.amount
+                    deals_finance += 1
+            if not d.user in userdict:
+                if  d.shares():
+                    rev = d.amount
+                    for s in d.shares():
+                        rev -= (d.amount * s.prozente/100)
+                    userdict[d.user] = {'revenue': rev, 'deals': 1}
+                else:
+                    userdict[d.user] = {'revenue': d.amount, 'deals': 1}
+            else:
+                if d.shares():
+                    rev = d.amount
+                    for s in d.shares():
+                        rev -= (d.amount * s.prozente/100)
+                    userdict[d.user]['revenue'] += rev
+                    userdict[d.user]['deals'] += 1
+                else:
+                    userdict[d.user]['revenue'] += d.amount
+                    userdict[d.user]['deals'] += 1
+        for d in deals_this_year:
+            rev = d.amount
+            for share in d.shares():
+                if not share.user in userdict:
+                    userdict[share.user] = {'revenue': 0, 'deals': 0}
+                userdict[share.user]['revenue'] += (d.amount * share.prozente/100)
+                userdict[share.user]['deals'] += 1
+
+        # userdict = sorted(userdict, key=lambda x: (userdict[x]['revenue'], userdict[x]['count'])).reverse()
+        
+        userdict = dict(
+            sorted(userdict.items(), key=lambda x: x[1]['revenue'], reverse=True))
+
+
+    
+        prozent_engineering = (umsatz_engineering/revenue_this_year)*100
+        prozent_it = (umsatz_it/revenue_this_year)*100
+        prozent_finance = (umsatz_finance/revenue_this_year)*100
+        prokopf_engineering = umsatz_engineering/anzahl_engineering
         #daily_bonding_mail_check.delay()
         umsatzziel_monat = Umsatzziel.objects.filter(date__month=timezone.now().month).filter(date__year=timezone.now().year).first()
         
@@ -270,6 +269,10 @@ def dashboard(request):
         if ToolKostenRechnung.objects.filter(rechnung_fuer=request.user).filter(bezahlt=False).exists():
             messages.warning(request, 'Sie haben noch offene Rechnungen für Toolkosten!')
 
+        # message modal congrats for new deals
+ 
+        locale.setlocale(locale.LC_ALL, 'de_DE')
+        
         return render(request, 'billerboard/dashboard.html', {'last_10_deals': last_10_deals,
                                                             'revenue_this_month': revenue_this_month,
                                                             'revenue_last_month': revenue_last_month,
@@ -306,6 +309,7 @@ def dashboard(request):
                                                                 
                                                             })
     except:
+        messages.add_message(request, messages.ERROR, 'CONGRATULATIONS', 'CONGRATULATIONS')
         return render(request, 'billerboard/dashboard.html')
 
 @login_required
@@ -356,6 +360,7 @@ def top_performers_month(request, month,year):
             nextyear = year+1
         
         locale.setlocale(locale.LC_ALL, 'de_DE')
+    
         return render(request, 'billerboard/partials/top_performer_month_partial.html',{
             'userdictmonth': userdictmonth,
             'prevmonth' : prevmonth,
@@ -368,6 +373,7 @@ def top_performers_month(request, month,year):
         })
     else:
         print('NO HTMX REQUEST')
+        
 
 @login_required
 def wall_of_fame(request):
@@ -1126,10 +1132,10 @@ def getListSurvey(request):
                 
             })
         
-        print("daily_surveys", list(survey.dailysurveyanswer_set.all()))
-        print("survey_data", list(survey_data))
         
         return render(request, 'billerboard/daily_survey_list.html', {"survey_data": survey_data})
            
          
-           
+def getListStaff(request):
+    if(request.method == 'GET'):
+        return render(request, 'billerboard/staff_list.html')

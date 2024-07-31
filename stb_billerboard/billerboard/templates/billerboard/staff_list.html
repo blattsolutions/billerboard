@@ -1,0 +1,13 @@
+{% extends "billerboard/base.html" %} {% load static %} {% load humanize %} {%
+    load avatar_tags %} {% load custom_filters %} 
+{% block content %}
+<div id="map"></div>
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="{% static "assets/js/countrymap.js" %}"></script>
+{% comment %} <script src="{% static "assets/js/mapdata.js" %}"></script> {% endcomment %}
+
+{% endblock scripts %}
