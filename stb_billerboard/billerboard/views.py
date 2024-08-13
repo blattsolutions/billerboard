@@ -1109,7 +1109,6 @@ def daily_survey(request):
                     data=data['answer'],
                     dailySurvey=dailySurvey
                 ))
-            
         
         DailySurveyAnswer.objects.bulk_create(responses)
         messages.success(request, 'Survey submitted successfully!')
@@ -1134,10 +1133,11 @@ def getListSurvey(request):
                 
             })
         
-        
         return render(request, 'billerboard/daily_survey_list.html', {"survey_data": survey_data})
            
          
 def getListStaff(request):
     if(request.method == 'GET'):
-        return render(request, 'billerboard/staff_list.html')
+        staffs = User.objects.select_related('profile__address__state')
+       
+    return render(request, 'billerboard/staff_list.html', {"staffs": staffs})

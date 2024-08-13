@@ -379,3 +379,22 @@ class DailySurvey(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return f'Survey of {self.user_survey}'
+    
+class State(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f"{self.name} ({self.code})"
+
+class UserAddress(models.Model):
+    full_address = models.TextField()
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    def __str__(self):
+        return f"{self.full_address}, {self.state.name} ({self.state.code})"
+    
+    def get_state_name(self):
+        return self.state.name
+    
+    def get_state_code(self):
+        return self.state.code

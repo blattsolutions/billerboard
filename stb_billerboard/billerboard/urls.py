@@ -27,8 +27,8 @@ urlpatterns = [
     path('sendhubspotunternehmen/', views.sendhubspotunternehmen, name='sendhubspotunternehmen'),
     
     path('dailysurvey/', views.daily_survey, name='dailysurvey'),
-    path('dailysurvey-list/', views.getListSurvey, name='dailysurvey-list'),
-    path('map-list/', views.getListStaff, name='map-list'),
+    path('dailysurvey-list/', views.getListSurvey, name='dailysurvey_list'),
+    path('staff-list/', views.getListStaff, name='staff_list'),
 
     path('team/', views.team, name='team'),
     path('interviewboard/add/', views.addivboard, name='addivboard'),
