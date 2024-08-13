@@ -5,3 +5,5 @@ Python-3.12.0/
 stb_billerboard/media/uploads/
 **/*/__pycache__
 **/*/migrations/*
+.DS_Store
+*/.DS_Store
