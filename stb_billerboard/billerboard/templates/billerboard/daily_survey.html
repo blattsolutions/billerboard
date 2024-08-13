@@ -165,9 +165,9 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
                   <div class="col-12 col-lg-12">
                     <label for={{question.id}} class="form-label">{{question.data}}</label>
                   </div>
-                    <div class="col-12 col-lg-6 form-input" data-question-id={{question.id}}>
-                      <input type="number" class="form-control" id={{question.id}} placeholder="Enter your answer " >
-                    </div>
+                  <div class="col-12 col-lg-6 form-input" data-question-id={{question.id}}>
+                    <input type="number" class="form-control" id={{question.id}} placeholder="Enter your answer" min="0" max="50" step="1" oninput="validateInput(this)">
+                  </div>
                   {% endif %}
                 {% endfor %}
              
@@ -215,7 +215,7 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
                     <label for={{question.id}} class="form-label">{{question.data}}</label>
                   </div>
                 <div class="col-12 col-lg-6 form-input" data-question-id={{question.id}} >
-                  <input type="text" class="form-control" id={{question.id}} placeholder="Enter your answer">
+                  <input type="text" class="form-control" id={{question.id}} placeholder="Enter your answer" min="0" max="50" step="1" oninput="validateInput(this)">
                 </div>
                 {% endif %}
                 {% endfor %}
@@ -271,7 +271,7 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
                     <label for={{question.id}} class="form-label">{{question.data}}</label>
                   </div>
                 <div class="col-12 col-lg-6 form-input" data-question-id={{question.id}}>
-                  <input type="text" class="form-control" id={{question.id}} placeholder="Enter your answer">
+                  <input type="text" class="form-control" id={{question.id}} placeholder="Enter your answer" min="0" max="50" step="1" oninput="validateInput(this)">
                 </div>
                 {% endif %}
                 {% endfor %}
@@ -408,7 +408,7 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
                     <label for={{question.id}} class="form-label">{{question.data}}</label>
                   </div>
                 <div class="col-12 col-lg-6 form-input" data-question-id={{question.id}}>
-                  <input type="text" class="form-control" id={{question.id}} placeholder="Enter your answer">
+                  <input type="number" class="form-control" id={{question.id}} placeholder="Enter your answer" min="1" max="10" step="1" oninput="validateInput(this)">
                 </div>
               
                 {% endif %}
@@ -496,7 +496,21 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
 </script>
 
  <script>
-
+  // Hàm xử lý sự kiện khi giá trị trường input thay đổi
+  function validateInput(inputElement ) {
+    console.log(inputElement.min)
+    let value = parseInt(inputElement.value, 10);
+    const max = inputElement.max;
+    const min = inputElement.min;
+    // Kiểm tra nếu giá trị là NaN hoặc ngoài phạm vi cho phép
+    if (isNaN(value)) {
+      inputElement.value = min; // Đặt giá trị tối thiểu nếu giá trị không phải số
+    } else if (value < min) {
+      inputElement.value = min; // Đặt giá trị tối thiểu nếu giá trị âm
+    } else if (value > max) {
+      inputElement.value = max; // Đặt giá trị tối đa nếu giá trị vượt quá
+    }
+  }
   document.getElementById('nextButton1').addEventListener('click', function() {
     // Collect input values from the current step
     const numberOfInputs = document.querySelectorAll('#test-vl-1 input')[0].value;
@@ -568,6 +582,7 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
       }
 
 });
-</script>  
+</script>
+
 
 {% endblock scripts %}
