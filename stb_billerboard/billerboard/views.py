@@ -1090,16 +1090,18 @@ def rang_overview(request):
 def daily_survey(request):
     if request.method == 'GET':
         questions = DailySurveyQuestion.objects.all().order_by('?').values('id', 'data', 'level')
-        return render(request, 'billerboard/daily_survey.html', {"questions": questions})
+        list_user = User.objects.filter(profile__team_lead=request.user)
+        print(list(list_user))
+        return render(request, 'billerboard/daily_survey.html', {"questions": questions, "list_user": list_user})
 
     if request.method == 'POST':
         user = request.user
         body = json.loads(request.body) # Log body của request
         responses = []
-        dailySurvey = DailySurvey.objects.create(user=user)
+        user_survey = User.objects.get(username=body['user_survey'])
+        dailySurvey = DailySurvey.objects.create(user=user,user_survey=user_survey)
         
-        for data in body:
-            print("questgion_id", data['question_id'])
+        for data in body['formData']:
             question = DailySurveyQuestion.objects.get(id=int(data['question_id']))
             responses.append(DailySurveyAnswer(
                     user=user,

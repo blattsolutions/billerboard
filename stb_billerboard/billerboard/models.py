@@ -362,7 +362,7 @@ class DailySurveyQuestion(models.Model):
 
 
 class DailySurveyAnswer(models.Model):
-    data = models.TextField()
+    data = models.JSONField()
     question = models.ForeignKey(DailySurveyQuestion, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     dailySurvey = models.ForeignKey('DailySurvey', on_delete=models.CASCADE)
@@ -373,8 +373,9 @@ class DailySurveyAnswer(models.Model):
 
 
 class DailySurvey(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name= 'teamlead')
+    user_survey = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='user_survey')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return f'Survey by {self.user}'
+        return f'Survey of {self.user_survey}'

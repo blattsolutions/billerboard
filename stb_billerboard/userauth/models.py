@@ -34,6 +34,7 @@ class Profile(models.Model):
         ('3', 'Quartalsweise'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    team_lead = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='team_lead')
     role = models.ForeignKey(CompanyRole, on_delete=models.CASCADE, null=True, blank=True)
     abteilung = models.ForeignKey('Abteilung', on_delete=models.SET_NULL, null=True, blank=True)
     last_rang_update = models.DateTimeField(default=timezone.now)

@@ -28,7 +28,12 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
               {% if answer.answer %}
 
               <div class="text-primary"><strong>Question {{forloop.counter}}: {{answer.question}} </strong></div>
-              <div ><strong>Answer {{forloop.counter}}</strong>: {{answer.answer}}</div>
+              {% for answer1 in answer.answer %}
+              <div ><strong>Answer {{ forloop.parentloop.counter }}.{{ forloop.counter }}</strong>: 
+                
+                {{answer1}}
+                </div>
+                {% endfor %}
               {% endif %}
             {% endfor %}
             </td>
