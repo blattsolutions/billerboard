@@ -266,11 +266,9 @@ async function updateMapData() {
         simplemaps_countrymap_mapdata.state_specific[code].description = desStaffName || "No one here";
       }
     });
-
-    const mapContainer = document.getElementById('map');
-    mapContainer.innerHTML = '';
-
-    simplemaps_countrymap.load();
+    // const mapContainer = document.getElementById('map');
+    // mapContainer.innerHTML = '';
+    simplemaps_countrymap.refresh();
     return listArray;
   } catch (error) {
     console.error('Error:', error);
