@@ -16,7 +16,7 @@ from .forms import AddUserToInvoice, DealForm, OfferEntryForm, DealDatenForm, Ei
 from django.contrib import messages
 from dateutil.relativedelta import relativedelta
 from userauth.tasks import calculate_rang
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 import requests
@@ -1118,6 +1118,7 @@ def daily_survey(request):
 def getListSurvey(request):
     if(request.method == 'GET'):
         daily_surveys = DailySurvey.objects.filter(user=request.user).select_related('user').prefetch_related('dailysurveyanswer_set__question')
+        print(list(daily_surveys))
         survey_data = []
         for survey in daily_surveys:
             answers = []
@@ -1139,5 +1140,33 @@ def getListSurvey(request):
 def getListStaff(request):
     if(request.method == 'GET'):
         staffs = User.objects.select_related('profile__address__state')
-       
+        for staff in staffs:
+            print(staff.profile.address.state)
+
     return render(request, 'billerboard/staff_list.html', {"staffs": staffs})
+
+def getListStaffApi(request):
+    staffs = User.objects.select_related('profile__address__state')
+    
+    staff_data = []
+    for user in staffs:
+        try:
+            address = user.profile.address
+            state_name = address.state.name
+            state_code = address.state.code
+            staff_data.append({
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'state_name': state_name,
+                'state_code': state_code,
+            })
+        except AttributeError:
+            staff_data.append({
+                'username': user.username,
+                'email': user.email,
+                'state_name': None,
+                'state_code': None,
+            })
+    
+    return JsonResponse(staff_data, safe=False)
