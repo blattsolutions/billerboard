@@ -477,9 +477,48 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
         }
       })
       const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+      let test =  [{
+        'anrede': 'Herr',
+        'position': 'string',
+        'vorname': 'string',
+        'email': 'string',
+        'telefon': 'string',
+        'nachname': 'string',
+        'kontakt_hubspotid': 'string',
+        'doer': 'string',
+        'ist_ansprechpartner': true,
+        'berufsbezeichnung': 'string'
+      },
+      {
+        'anrede': 'Frau',
+        'position': 'string',
+        'vorname': 'string',
+        'email': 'string',
+        'telefon': 'string',
+        'nachname': 'string',
+        'kontakt_hubspotid': 'string',
+        'doer': 'string',
+        'ist_ansprechpartner': false,
+        'berufsbezeichnung': 'string'
+      },
+      {
+        'anrede': 'Herr',
+        'position': 'string',
+        'vorname': 'string',
+        'email': 'string',
+        'telefon': 'string',
+        'nachname': 'string',
+        'kontakt_hubspotid': 'string',
+        'doer': 'string',
+        'ist_ansprechpartner': true,
+        'berufsbezeichnung': 'string'
+      }]
+      console.log(test)
       const body = {
         formData,
-        user_survey: selectedValues
+        user_survey: selectedValues,
+        formKandidates: test
+        // TODO Kandidate Forms here
       }
       fetch('/dailysurvey/', {
         method: 'POST', 
@@ -558,7 +597,6 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
 </script>  
 
 <script>
-
   document.getElementById('nextButton5').addEventListener('click', function() {
     // Collect input values from the current step
     const numberOfInputs = document.querySelectorAll('#test-vl-5 input')[0].value;
@@ -578,7 +616,6 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
         // Append the new input to the container
         container.appendChild(input);
       }
-
 });
 </script>
 

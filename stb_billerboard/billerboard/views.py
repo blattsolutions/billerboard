@@ -16,7 +16,7 @@ from .forms import AddUserToInvoice, DealForm, OfferEntryForm, DealDatenForm, Ei
 from django.contrib import messages
 from dateutil.relativedelta import relativedelta
 from userauth.tasks import calculate_rang
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 import requests
@@ -1110,9 +1110,24 @@ def daily_survey(request):
                     dailySurvey=dailySurvey
                 ))
         
+        for data in body['formKandidates']:
+            kontakt = Kontakt.objects.create(
+                anrede = data['anrede'],
+                position = data['position'],
+                vorname = data['vorname'],
+                email = data['email'],
+                telefon = data['telefon'],
+                nachname = data['nachname'],
+                kontakt_hubspotid = data['kontakt_hubspotid'],
+                doer = data['doer'],
+                ist_ansprechpartner = data['ist_ansprechpartner'],
+            )
+            Kandidat.objects.create(kontakt = kontakt, berufsbezeichnung = data['berufsbezeichnung'])
+        
         DailySurveyAnswer.objects.bulk_create(responses)
         messages.success(request, 'Survey submitted successfully!')
         return render(request, 'billerboard/daily_survey.html')
+
 
 @login_required()
 def getListSurvey(request):
@@ -1139,5 +1154,30 @@ def getListSurvey(request):
 def getListStaff(request):
     if(request.method == 'GET'):
         staffs = User.objects.select_related('profile__address__state')
-       
     return render(request, 'billerboard/staff_list.html', {"staffs": staffs})
+
+def getListStaffApi(request):
+    staffs = User.objects.select_related('profile__address__state')
+    
+    staff_data = []
+    for user in staffs:
+        try:
+            address = user.profile.address
+            state_name = address.state.name
+            state_code = address.state.code
+            staff_data.append({
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'state_name': state_name,
+                'state_code': state_code,
+            })
+        except AttributeError:
+            staff_data.append({
+                'username': user.username,
+                'email': user.email,
+                'state_name': None,
+                'state_code': None,
+            })
+    
+    return JsonResponse(staff_data, safe=False)
