@@ -1,34 +1,3 @@
-var listStaff = [
-  {
-    id: 1,
-    code: "DEBB",
-    staffName: [
-      {
-        staffId: 1,
-        name: "Minh Tú",
-      },
-      {
-        staffId: 2,
-        name: "Minh Hoàng",
-      },
-    ],
-  },
-  {
-    id: 2,
-    code: "DEBE",
-    staffName: [
-      {
-        staffId: 1,
-        name: "Minh Hào",
-      },
-      {
-        staffId: 2,
-        name: "Minh Tuấn",
-      },
-    ],
-  },
-];
-
 var simplemaps_countrymap_mapdata = {
   main_settings: {
     //General settings
@@ -107,52 +76,82 @@ var simplemaps_countrymap_mapdata = {
   state_specific: {
     DEBB: {
       name: "Brandenburg",
+      description: "No one here",
     },
     DEBE: {
       name: "Berlin",
+      description: "No one here",
+
     },
     DEBW: {
       name: "Baden-Württemberg",
+      description: "No one here",
+
     },
     DEBY: {
       name: "Bayern",
-      description: "This is Bayern",
+      description: "No one here",
+
     },
     DEHB: {
       name: "Bremen",
+      description: "No one here",
+
     },
     DEHE: {
       name: "Hessen",
+      description: "No one here",
+
     },
     DEHH: {
       name: "Hamburg",
+      description: "No one here",
+
     },
     DEMV: {
       name: "Mecklenburg-Vorpommern",
+      description: "No one here",
+
     },
     DENI: {
       name: "Niedersachsen",
+      description: "No one here",
+
     },
     DENW: {
       name: "Nordrhein-Westfalen",
+      description: "No one here",
+
     },
     DERP: {
       name: "Rheinland-Pfalz",
+      description: "No one here",
+
     },
     DESH: {
       name: "Schleswig-Holstein",
+      description: "No one here",
+
     },
     DESL: {
       name: "Saarland",
+      description: "No one here",
+
     },
     DESN: {
       name: "Sachsen",
+      description: "No one here",
+
     },
     DEST: {
       name: "Sachsen-Anhalt",
+      description: "No one here",
+
     },
     DETH: {
       name: "Thüringen",
+      description: "No one here",
+
     },
   },
   locations: {},
@@ -228,13 +227,54 @@ var simplemaps_countrymap_mapdata = {
   regions: {},
 };
 
-listStaff.forEach((staff) => {
-  const code = staff.code;
-  const desStaffName = staff.staffName
-    .map((s) => ` - ${s.name}<br />`)
-    .join("");
-  if (simplemaps_countrymap_mapdata.state_specific[code]) {
-    simplemaps_countrymap_mapdata.state_specific[code].description =
-      desStaffName;
+let listArray = [];
+async function updateMapData() {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/staff-list-api/');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    const groupedByStateCode = data.reduce((acc, item) => {
+      if (!acc[item.state_code]) {
+        acc[item.state_code] = {
+          id: item.id,
+          state_code: item.state_code,
+          state_name: item.state_name,
+          staffName: []
+        };
+      }
+      acc[item.state_code].staffName.push({
+        staffId: item.id,
+        username: item.username,
+        email: item.email
+      });
+      return acc;
+    }, {});
+
+    const result = Object.values(groupedByStateCode);
+    listArray = result;
+
+    result.forEach((staff) => {
+      const code = staff.state_code;
+      const stateName = staff.state_name;
+      const desStaffName = staff.staffName
+        .map((s) => ` - ${s.username} (${s.email})<br />`)
+        .join("");
+      if (simplemaps_countrymap_mapdata.state_specific[code]) {
+        simplemaps_countrymap_mapdata.labels[code].name = stateName;
+        simplemaps_countrymap_mapdata.state_specific[code].description = desStaffName || "No one here";
+      }
+    });
+    // const mapContainer = document.getElementById('map');
+    // mapContainer.innerHTML = '';
+    simplemaps_countrymap.refresh();
+    return listArray;
+  } catch (error) {
+    console.error('Error:', error);
+    return [];
   }
+}
+updateMapData().then(() => {
+  console.log("listArray", listArray);
 });

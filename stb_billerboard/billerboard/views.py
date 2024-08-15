@@ -16,7 +16,11 @@ from .forms import AddUserToInvoice, DealForm, OfferEntryForm, DealDatenForm, Ei
 from django.contrib import messages
 from dateutil.relativedelta import relativedelta
 from userauth.tasks import calculate_rang
+<<<<<<< HEAD
 from django.http import HttpResponse, JsonResponse
+=======
+from django.http import HttpResponse,JsonResponse
+>>>>>>> 1836f65e4abd7e4feb2cd7799eab2ad70fcb4096
 from django.views.decorators.csrf import csrf_exempt
 import json
 import requests
@@ -1133,6 +1137,7 @@ def daily_survey(request):
 def getListSurvey(request):
     if(request.method == 'GET'):
         daily_surveys = DailySurvey.objects.filter(user=request.user).select_related('user').prefetch_related('dailysurveyanswer_set__question')
+        print(list(daily_surveys))
         survey_data = []
         for survey in daily_surveys:
             answers = []
