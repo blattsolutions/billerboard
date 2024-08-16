@@ -309,7 +309,6 @@ def dashboard(request):
                                                                 
                                                             })
     except:
-        messages.add_message(request, messages.ERROR, 'CONGRATULATIONS', 'CONGRATULATIONS')
         return render(request, 'billerboard/dashboard.html')
 
 @login_required
