@@ -351,3 +351,50 @@ class ToolKostenRechnung(models.Model):
     genehmigt_am = models.DateField(null=True, blank=True)
     lexoffice_id = models.CharField(max_length=200, null=True, blank=True)
     rechnungsdatum = models.DateField(auto_now_add=True)
+
+class DailySurveyQuestion(models.Model):
+    data = models.TextField()
+    level = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.data
+
+
+class DailySurveyAnswer(models.Model):
+    data = models.JSONField()
+    question = models.ForeignKey(DailySurveyQuestion, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    dailySurvey = models.ForeignKey('DailySurvey', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.data
+
+
+class DailySurvey(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name= 'teamlead')
+    user_survey = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='user_survey')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f'Survey of {self.user_survey}'
+    
+class State(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f"{self.name} ({self.code})"
+
+class UserAddress(models.Model):
+    full_address = models.TextField()
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    def __str__(self):
+        return f"{self.full_address}, {self.state.name} ({self.state.code})"
+    
+    def get_state_name(self):
+        return self.state.name
+    
+    def get_state_code(self):
+        return self.state.code

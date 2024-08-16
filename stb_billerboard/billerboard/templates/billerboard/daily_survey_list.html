@@ -1,0 +1,56 @@
+{% extends "billerboard/base.html" %} {% load static %} {% load humanize %} {%
+load avatar_tags %} {% load custom_filters %} {% block content %}
+
+
+<div class="page-content">
+  <!--end breadcrumb-->
+  <!--start stepper three-->
+  <h6 class="text-uppercase">Daily Survey List</h6>
+  <hr />
+  <div class="card">
+    <div class="card-body">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Role</th>
+            <th scope="col">Survey</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in survey_data %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{data.role}}</td>
+            <td >
+            {% for answer in data.answers %}
+              {% if answer.answer %}
+
+              <div class="text-primary"><strong>Question {{forloop.counter}}: {{answer.question}} </strong></div>
+              {% for answer1 in answer.answer %}
+              <div ><strong>Answer {{ forloop.parentloop.counter }}.{{ forloop.counter }}</strong>: 
+                
+                {{answer1}}
+                </div>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+            </td>
+            <td>{{data.created_at}}</td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--end stepper three-->
+</div>
+{% endblock %}
+
+
+
+{% block scripts %}
+
+{% endblock scripts %}

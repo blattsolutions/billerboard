@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from billerboard.models import Deal
+from billerboard.models import UserAddress, Deal
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 
@@ -34,17 +34,20 @@ class Profile(models.Model):
         ('3', 'Quartalsweise'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    team_lead = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='team_lead')
     role = models.ForeignKey(CompanyRole, on_delete=models.CASCADE, null=True, blank=True)
     abteilung = models.ForeignKey('Abteilung', on_delete=models.SET_NULL, null=True, blank=True)
     last_rang_update = models.DateTimeField(default=timezone.now)
     ist_aktiv = models.BooleanField(default=True)
     toolabrechnungszyklus = models.CharField(max_length=1, choices=TOOLABRECHNUNG_CHOICES, default='1')
     minrang = models.ForeignKey('Rang', on_delete=models.SET_NULL, null=True, blank=True)
+    address = models.OneToOneField(UserAddress, on_delete=models.SET_NULL, null=True, blank=True, related_name='address')
     def __str__(self):
         try:
             return self.user.first_name + " " + self.user.last_name + " - " + self.role.name + " - " + self.abteilung.name
         except:
             return self.user.first_name + " " + self.user.last_name + " - " + 'Keine Rolle'
+
     @property
     def get_rang(self):
         return RangHistory.objects.filter(user=self).order_by('-rang_updated_at').first().rang.name
@@ -68,6 +71,7 @@ class RangHistory(models.Model):
 
     def __str__(self):
         return self.user.user.first_name + " " + self.user.user.last_name + " - " + self.rang.name + " - " + str(self.rang_updated_at)
+
 class Abteilung(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     icon = models.CharField(max_length=200, null=True, blank=True)

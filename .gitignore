@@ -1,6 +1,9 @@
 #ignore venv folder
 venv/
 Python-3.12.0/
-*/**/settings.py
-media/
-.vscode/
+**/*/settings.py
+stb_billerboard/media/uploads/
+**/*/__pycache__
+**/*/migrations/*
+.DS_Store
+*/.DS_Store

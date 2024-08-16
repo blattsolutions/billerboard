@@ -25,12 +25,13 @@ urlpatterns = [
     path('sendhubspotcandidate/', views.sendhubspotcandidate, name='sendhubspotcandidate'),
     path('createhubspotunternehmen/', views.createhubspotunternehmen, name='createhubspotunternehmen'),
     path('sendhubspotunternehmen/', views.sendhubspotunternehmen, name='sendhubspotunternehmen'),
-
-
+    
+    path('dailysurvey/', views.daily_survey, name='dailysurvey'),
+    path('dailysurvey-list/', views.getListSurvey, name='dailysurvey_list'),
+    path('staff-list/', views.getListStaff, name='staff_list'),
+    path('staff-list-api/', views.getListStaffApi, name='staff_list_api'),
 
     path('team/', views.team, name='team'),
-    
-    
     path('interviewboard/add/', views.addivboard, name='addivboard'),
     path('interviewboard/alle', views.alleivboards, name='alleivboards'),
     path('interviewboard/gesamt/', views.ivboardall, name='ivboardall'),
