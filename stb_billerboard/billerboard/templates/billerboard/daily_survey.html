@@ -414,7 +414,7 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
                 <div class="col-12">
                   <div class="d-flex align-items-center gap-3">
                     <div class="btn btn-primary px-4" onclick="stepper3.previous()"><i class="bx bx-left-arrow-alt me-2"></i>Previous</div>
-                    <button class="btn btn-success px-4" onclick="">Submit</button>
+                    <button class="btn btn-success px-4">Submit</button>
                   </div>
                 </div>
               </div><!---end row-->
@@ -439,110 +439,127 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
 <link href="{% static "assets/plugins/bs-stepper/css/bs-stepper.css"%}" rel="stylesheet" />
 <script src="{% static "assets/plugins/bs-stepper/js/bs-stepper.min.js"%}"></script>
 <script src="{% static "assets/plugins/bs-stepper/js/main.js"%}"></script>
+<script src="{% static "assets/plugins/notifications/js/lobibox.min.js"%}"></script>
+<script src="{% static "assets/plugins/notifications/js/notifications.min.js"%}"></script>
+<script src="{% static "assets/plugins/notifications/js/notification-custom-script.js"%}"></script>
 <script>
   stepper3 = new Stepper(document.querySelector("#stepper3"));
+  document.addEventListener('DOMContentLoaded', function() {
+    // Kiểm tra xem có cần hiển thị thông báo không
+    if (localStorage.getItem('showSuccessNoti') === 'true') {
+      localStorage.removeItem('showSuccessNoti'); // Xóa giá trị sau khi hiển thị thông báo
+      round_success_noti();
+    }
+    document.querySelector('.btn-success').addEventListener('click', function() {
+      event.preventDefault();
+      let formData = [];
+      let selectedValues ;
+      let formKandidates = [];
+      const selects = document.querySelectorAll('#test-vl-0 select');
+      const kandidateForm = document.querySelectorAll('.form-kandidate .card');
   
-  document.querySelector('.btn-success').addEventListener('click', function() {
-    event.preventDefault();
-    let formData = [];
-    let selectedValues ;
-    let formKandidates = [];
-    const selects = document.querySelectorAll('#test-vl-0 select');
-    const kandidateForm = document.querySelectorAll('.form-kandidate .card');
-
-    kandidateForm.forEach((kandidate, index) => {
-      let kandidateData = {};
-      let formFields = kandidate.querySelectorAll('.card-body .row');
-
-      formFields.forEach(field => {
-        let input = field.querySelector('input, select');
-        let radio = field.querySelectorAll('input[type="radio"]');
-        let id = input.id;
-        let value = input.value;
-
-        radio.forEach(radio => {
-          if (radio.checked) {
-            kandidateData.anrede = radio.value;
+      kandidateForm.forEach((kandidate, index) => {
+        let kandidateData = {};
+        let formFields = kandidate.querySelectorAll('.card-body .row');
+  
+        formFields.forEach(field => {
+          let input = field.querySelector('input, select');
+          let radio = field.querySelectorAll('input[type="radio"]');
+          let id = input.id;
+          let value = input.value;
+  
+          radio.forEach(radio => {
+            if (radio.checked) {
+              kandidateData.anrede = radio.value;
+            }
+          });
+          
+          switch(id) {
+            case 'Postion':
+                kandidateData.position = value;
+                break;
+            case 'Vorname':
+                kandidateData.vorname = value;
+                break;
+            case 'email':
+                kandidateData.email = value;
+                break;
+            case 'telephone':
+                kandidateData.telefon = value;
+                break;
+            case 'nachname':
+                kandidateData.nachname = value;
+                break;
+            case 'hubspotid':
+                kandidateData.kontakt_hubspotid = value;
+                break;
+            case 'doer':
+                kandidateData.doer = value;
+                break;
+            case 'ansprechpartner':
+                kandidateData.ist_ansprechpartner = value === 'True';
+                break;
+            case 'berufsbezeichnung':
+                kandidateData.berufsbezeichnung = value;
+                break;
           }
-        });
-        
-        switch(id) {
-          case 'Postion':
-              kandidateData.position = value;
-              break;
-          case 'Vorname':
-              kandidateData.vorname = value;
-              break;
-          case 'email':
-              kandidateData.email = value;
-              break;
-          case 'telephone':
-              kandidateData.telefon = value;
-              break;
-          case 'nachname':
-              kandidateData.nachname = value;
-              break;
-          case 'hubspotid':
-              kandidateData.kontakt_hubspotid = value;
-              break;
-          case 'doer':
-              kandidateData.doer = value;
-              break;
-          case 'ansprechpartner':
-              kandidateData.ist_ansprechpartner = value === 'True';
-              break;
-          case 'berufsbezeichnung':
-              kandidateData.berufsbezeichnung = value;
-              break;
+  
+        })
+        formKandidates.push(kandidateData);
+      });
+  
+      selects.forEach(select => {
+        const selectedValue = select.value;
+        if (selectedValue) {
+          selectedValues = selectedValue;
         }
-
-      })
-      formKandidates.push(kandidateData);
-    });
-
-    selects.forEach(select => {
-      const selectedValue = select.value;
-      if (selectedValue) {
-        selectedValues = selectedValue;
-      }
-    });
-
-    // Get all input elements inside the form
-      let inputs = document.querySelectorAll('.form-input');
-      inputs.forEach(section => {
-        let answers = [];
-        const questionId = section.dataset.questionId;
-        const inputs = section.querySelectorAll('.form-control');
-        if(inputs.length > 0) {
+      });
+  
+      // Get all input elements inside the form
+        let inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(section => {
           let answers = [];
-          inputs.forEach((input) => {
-            answers.push(
-               input.value
-            );
-          });
-          formData.push({
-            question_id: Number(questionId),
-            answer: answers
-          });
+          const questionId = section.dataset.questionId;
+          const inputs = section.querySelectorAll('.form-control');
+          if(inputs.length > 0) {
+            let answers = [];
+            inputs.forEach((input) => {
+              answers.push(
+                 input.value
+              );
+            });
+            formData.push({
+              question_id: Number(questionId),
+              answer: answers
+            });
+          }
+        })
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+        const body = {
+          formData,
+          user_survey: selectedValues,
+          formKandidates
+          // TODO Kandidate Forms here
         }
-      })
-      const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-      const body = {
-        formData,
-        user_survey: selectedValues,
-        formKandidates
-        // TODO Kandidate Forms here
-      }
-      fetch('/dailysurvey/', {
-        method: 'POST', 
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrfToken
-        },
-        body: JSON.stringify(body) 
-      })
-      .then(response => console.log(response))
+        fetch('/dailysurvey/', {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+          },
+          body: JSON.stringify(body) 
+        })
+        .then(response =>{
+          window.location.reload();
+          localStorage.setItem('showSuccessNoti', 'true');
+        })
+        .catch(error => {
+          round_error_noti();
+      });
+
+    });
   });
+ 
 </script>
 
  <script>

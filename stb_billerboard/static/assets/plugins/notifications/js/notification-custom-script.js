@@ -95,7 +95,7 @@ function round_error_noti() {
 		icon: 'bx bx-x-circle',
 		continueDelayOnInactiveTab: false,
 		position: 'top right',
-		msg: 'Lorem ipsum dolor sit amet hears farmer indemnity inherent.'
+		msg: 'Information error or server not yet processed!'
 	});
 }
 
@@ -108,7 +108,7 @@ function round_success_noti() {
 		delayIndicator: false,
 		continueDelayOnInactiveTab: false,
 		position: 'top right',
-		msg: 'Lorem ipsum dolor sit amet hears farmer indemnity inherent.'
+		msg: 'Successfully created Daily Survey Form!'
 	});
 }
 /* Notifications With Images*/
