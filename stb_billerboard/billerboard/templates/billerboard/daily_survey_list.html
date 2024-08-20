@@ -9,13 +9,14 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
   <hr />
   <div class="card">
     <div class="card-body">
-      <table class="table mb-0">
+      <table class="table table-bordered mb-0">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Role</th>
-            <th scope="col">Survey</th>
+            <th scope="col">Questions & Answers</th>
             <th scope="col">Date</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -24,21 +25,20 @@ load avatar_tags %} {% load custom_filters %} {% block content %}
             <th scope="row">{{forloop.counter}}</th>
             <td>{{data.role}}</td>
             <td >
-            {% for answer in data.answers %}
-              {% if answer.answer %}
-
-              <div class="text-primary"><strong>Question {{forloop.counter}}: {{answer.question}} </strong></div>
-              {% for answer1 in answer.answer %}
-              <div ><strong>Answer {{ forloop.parentloop.counter }}.{{ forloop.counter }}</strong>: 
-                
-                {{answer1}}
-                </div>
-                {% endfor %}
+              {% if data.answers|length > 0 %}
+                {% with first_answer=data.answers.0 %}
+                  {% if first_answer.answer %}
+                    <div class="text-primary ">
+                      <strong>Question 1: {{ first_answer.question }} ... </strong>
+                    </div>
+                  {% endif %}
+                {% endwith %}
               {% endif %}
-            {% endfor %}
             </td>
             <td>{{data.created_at}}</td>
-
+            <td>
+              <a href="{% url 'dailysurvey_detail' data.id %}" class="btn btn-primary btn-sm">See more </a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
