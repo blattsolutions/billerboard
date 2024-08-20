@@ -1132,7 +1132,7 @@ def daily_survey(request):
 def getListSurvey(request):
     if(request.method == 'GET'):
         daily_surveys = DailySurvey.objects.filter(user=request.user).select_related('user').prefetch_related('dailysurveyanswer_set__question')
-        print(list(daily_surveys))
+
         survey_data = []
         for survey in daily_surveys:
             answers = []
@@ -1142,6 +1142,7 @@ def getListSurvey(request):
                     'question': answer.question.data,
                 })
             survey_data.append({
+                'id': survey.id,
                 'role': survey,
                 'answers': answers,
                 'created_at': survey.created_at,
@@ -1149,8 +1150,32 @@ def getListSurvey(request):
             })
         
         return render(request, 'billerboard/daily_survey_list.html', {"survey_data": survey_data})
-           
-         
+
+@login_required()    
+def getDetailSurvey(request, survey_id):
+    if(request.method == 'GET'):
+        # Retrieve the survey object with related answers and questions
+        survey = get_object_or_404(DailySurvey, id=survey_id, user=request.user)
+        
+        # Prepare a dictionary to hold the formatted data
+        survey_data = {
+            'id': survey.id,
+            'role': str(survey),  # Convert the survey to a string representation
+            'created_at': survey.created_at,  # Pass the creation timestamp
+            'answers': []
+        }
+        
+        # Retrieve related answers and questions
+        answers = DailySurveyAnswer.objects.filter(dailySurvey=survey).select_related('question')
+        for answer in answers:
+            survey_data['answers'].append({
+                'answer': answer.data,  # Use the JSONField directly
+                'question': str(answer.question)  # Get string representation of the question
+            })
+
+        print(survey_data)
+        return render(request, 'billerboard/daily_survey_detail.html', {"survey_data": survey_data})
+
 def getListStaff(request):
     if(request.method == 'GET'):
         staffs = User.objects.select_related('profile__address__state')
